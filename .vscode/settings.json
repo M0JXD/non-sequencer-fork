@@ -64,6 +64,7 @@
     "grid.C": "cpp",
     "ntk-perf.C": "cpp",
     "Fl_DialX.C": "cpp",
-    "focus_frame.C": "cpp"
+    "focus_frame.C": "cpp",
+    "phrase.C": "cpp"
   }
 }
