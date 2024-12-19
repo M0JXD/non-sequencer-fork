@@ -22,7 +22,7 @@
 #include <vector>
 #include <list>
 
-#include <sigc++-2.0/sigc++/sigc++.h>
+#include <sigc++/sigc++.h>
 
 #include "common.h"
 
