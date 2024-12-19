@@ -46,7 +46,7 @@ sequence::lock ( void )
     // create a copy of the lock-free data.
     _rw = new data;
 
-    data *d = const_cast< data *> (_rd);
+    struct data *d = const_cast< data *> (_rd);
 
     _rw->phrases = d->phrases;
     _rw->num     = d->num;

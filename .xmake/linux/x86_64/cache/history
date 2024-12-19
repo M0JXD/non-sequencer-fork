@@ -24,6 +24,13 @@
         "xmake check",
         "xmake check",
         "xmake check",
+        "xmake ",
+        "xmake l /home/jamiedrinkell/.vscode/extensions/tboox.xmake-vscode-2.3.9/assets/plats.lua",
+        "xmake l /home/jamiedrinkell/.vscode/extensions/tboox.xmake-vscode-2.3.9/assets/plats.lua",
+        "xmake l /home/jamiedrinkell/.vscode/extensions/tboox.xmake-vscode-2.3.9/assets/archs.lua linux",
+        "xmake ",
+        "xmake ",
+        "xmake ",
         "xmake "
     }
 }
