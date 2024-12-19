@@ -61,6 +61,9 @@
     "canvas.C": "cpp",
     "Client.C": "cpp",
     "sequence.C": "cpp",
-    "grid.C": "cpp"
+    "grid.C": "cpp",
+    "ntk-perf.C": "cpp",
+    "Fl_DialX.C": "cpp",
+    "focus_frame.C": "cpp"
   }
 }
