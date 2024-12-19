@@ -1,0 +1,32 @@
+{
+    tool_target_FL_linux_x86_64_cc = {
+        program = "/usr/bin/gcc",
+        toolchain_info = {
+            plat = "linux",
+            arch = "x86_64",
+            cachekey = "gcc_arch_x86_64_plat_linux",
+            name = "gcc"
+        },
+        toolname = "gcc"
+    },
+    tool_target_nonlib_linux_x86_64_cc = {
+        program = "/usr/bin/gcc",
+        toolchain_info = {
+            plat = "linux",
+            arch = "x86_64",
+            cachekey = "gcc_arch_x86_64_plat_linux",
+            name = "gcc"
+        },
+        toolname = "gcc"
+    },
+    ["tool_target_non-sequencer_linux_x86_64_cc"] = {
+        program = "/usr/bin/gcc",
+        toolchain_info = {
+            plat = "linux",
+            arch = "x86_64",
+            cachekey = "gcc_arch_x86_64_plat_linux",
+            name = "gcc"
+        },
+        toolname = "gcc"
+    }
+}

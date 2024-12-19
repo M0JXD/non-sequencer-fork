@@ -1,0 +1,16 @@
+target("nonlib")
+    set_kind("static")
+    add_files("nonlib/*.C")
+    add_includedirs("nonlib")
+
+target("FL")
+    set_kind("static")
+    add_files("FL/*.C")
+    add_includedirs("nonlib")
+    
+target("non-sequencer")
+    set_kind("binary")
+    add_files("src/*.C")
+    add_deps("nonlib", "FL")
+    add_includedirs("nonlib")
+    add_includedirs("FL")

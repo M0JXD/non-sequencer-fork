@@ -1,0 +1,151 @@
+[
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-o", "build/.objs/FL/linux/x86_64/release/FL/Fl_SliderX.C.o", "FL/Fl_SliderX.C"],
+  "file": "FL/Fl_SliderX.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-o", "build/.objs/FL/linux/x86_64/release/FL/event_name.C.o", "FL/event_name.C"],
+  "file": "FL/event_name.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-o", "build/.objs/FL/linux/x86_64/release/FL/Fl_DialX.C.o", "FL/Fl_DialX.C"],
+  "file": "FL/Fl_DialX.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-o", "build/.objs/FL/linux/x86_64/release/FL/menu_popup.C.o", "FL/menu_popup.C"],
+  "file": "FL/menu_popup.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-o", "build/.objs/FL/linux/x86_64/release/FL/Fl_Value_SliderX.C.o", "FL/Fl_Value_SliderX.C"],
+  "file": "FL/Fl_Value_SliderX.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-o", "build/.objs/FL/linux/x86_64/release/FL/Fl_Scalepack.C.o", "FL/Fl_Scalepack.C"],
+  "file": "FL/Fl_Scalepack.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-o", "build/.objs/FL/linux/x86_64/release/FL/Fl_Menu_Settings.C.o", "FL/Fl_Menu_Settings.C"],
+  "file": "FL/Fl_Menu_Settings.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-o", "build/.objs/FL/linux/x86_64/release/FL/test_press.C.o", "FL/test_press.C"],
+  "file": "FL/test_press.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-o", "build/.objs/FL/linux/x86_64/release/FL/focus_frame.C.o", "FL/focus_frame.C"],
+  "file": "FL/focus_frame.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-o", "build/.objs/nonlib/linux/x86_64/release/nonlib/string_util.C.o", "nonlib/string_util.C"],
+  "file": "nonlib/string_util.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-o", "build/.objs/nonlib/linux/x86_64/release/nonlib/dsp.C.o", "nonlib/dsp.C"],
+  "file": "nonlib/dsp.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-o", "build/.objs/nonlib/linux/x86_64/release/nonlib/Log_Entry.C.o", "nonlib/Log_Entry.C"],
+  "file": "nonlib/Log_Entry.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-o", "build/.objs/nonlib/linux/x86_64/release/nonlib/Thread.C.o", "nonlib/Thread.C"],
+  "file": "nonlib/Thread.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-o", "build/.objs/nonlib/linux/x86_64/release/nonlib/Loggable.C.o", "nonlib/Loggable.C"],
+  "file": "nonlib/Loggable.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-o", "build/.objs/nonlib/linux/x86_64/release/nonlib/debug.C.o", "nonlib/debug.C"],
+  "file": "nonlib/debug.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-o", "build/.objs/nonlib/linux/x86_64/release/nonlib/file.C.o", "nonlib/file.C"],
+  "file": "nonlib/file.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/jack.C.o", "src/jack.C"],
+  "file": "src/jack.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/NSM.C.o", "src/NSM.C"],
+  "file": "src/NSM.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/pattern.C.o", "src/pattern.C"],
+  "file": "src/pattern.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/sequence.C.o", "src/sequence.C"],
+  "file": "src/sequence.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/grid.C.o", "src/grid.C"],
+  "file": "src/grid.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/instrument.C.o", "src/instrument.C"],
+  "file": "src/instrument.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/phrase.C.o", "src/phrase.C"],
+  "file": "src/phrase.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/canvas.C.o", "src/canvas.C"],
+  "file": "src/canvas.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/scale.C.o", "src/scale.C"],
+  "file": "src/scale.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/main.C.o", "src/main.C"],
+  "file": "src/main.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/mapping.C.o", "src/mapping.C"],
+  "file": "src/mapping.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/smf.C.o", "src/smf.C"],
+  "file": "src/smf.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/debug.C.o", "src/debug.C"],
+  "file": "src/debug.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/transport.C.o", "src/transport.C"],
+  "file": "src/transport.C"
+}]

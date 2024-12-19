@@ -1,0 +1,54 @@
+{
+    find_program_gcc_arch_x86_64_plat_linux_checktoolcc = {
+        gcc = "/usr/bin/gcc"
+    },
+    ["lib.detect.has_flags"] = {
+        ["linux_x86_64_/usr/bin/gcc_13.3.0-6ubuntu2_cc__-m64_-fPIC"] = true,
+        ["linux_x86_64_/usr/bin/gcc_13.3.0-6ubuntu2_cc_cxflags_-m64_-MMD -MF"] = true,
+        ["linux_x86_64_/usr/bin/gcc_13.3.0-6ubuntu2_cc_cxflags_-m64_-fdiagnostics-color=always"] = true
+    },
+    ["detect.tools.gcc.has_cflags"] = {
+        ["/usr/bin/gcc_13.3.0-6ubuntu2"] = {
+            ["--target-help"] = true,
+            ["-c"] = true,
+            ["-print-multi-lib"] = true,
+            ["-print-sysroot-headers-suffix"] = true,
+            ["-Xlinker"] = true,
+            ["--help"] = true,
+            ["-dumpspecs"] = true,
+            ["-dumpversion"] = true,
+            ["--version"] = true,
+            ["-print-multi-os-directory"] = true,
+            ["-print-multiarch"] = true,
+            ["-E"] = true,
+            ["-print-libgcc-file-name"] = true,
+            ["-print-sysroot"] = true,
+            ["-Xassembler"] = true,
+            ["-print-search-dirs"] = true,
+            ["-save-temps"] = true,
+            ["-print-multi-directory"] = true,
+            ["-o"] = true,
+            ["-B"] = true,
+            ["-dumpmachine"] = true,
+            ["-v"] = true,
+            ["-no-canonical-prefixes"] = true,
+            ["-x"] = true,
+            ["-pipe"] = true,
+            ["-shared"] = true,
+            ["--param"] = true,
+            ["-time"] = true,
+            ["-S"] = true,
+            ["-Xpreprocessor"] = true,
+            ["-pass-exit-codes"] = true,
+            ["-pie"] = true
+        }
+    },
+    find_program = {
+        gcc = "/usr/bin/gcc",
+        zig = false,
+        ["/usr/bin/gcc"] = "/usr/bin/gcc"
+    },
+    find_programver = {
+        ["/usr/bin/gcc"] = "13.3.0-6ubuntu2"
+    }
+}
