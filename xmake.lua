@@ -8,6 +8,7 @@ target("non-sequencer")
     add_files("src/gui/*.C")
     add_files("src/NSM/*.C")
 
+    -- nonlib files
     add_files("nonlib/*.C")
     add_files("nonlib/MIDI/*.C")
     add_files("nonlib/OSC/*.C")
@@ -15,6 +16,7 @@ target("non-sequencer")
     -- NSM support is already in src
     --add_files("nonlib/NSM/*.C")
 
+    -- FL Files
     add_files("FL/*.C")
     --add_files("FL/util/*.C")
 

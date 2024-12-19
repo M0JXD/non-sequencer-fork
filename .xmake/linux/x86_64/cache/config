@@ -1,9 +1,0 @@
-{
-    mtimes = {
-        ["xmake.lua"] = 1734641006
-    },
-    options = {
-        clean = true
-    },
-    recheck = false
-}

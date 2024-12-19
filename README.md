@@ -1,61 +1,42 @@
-# NON
+# Non Sequencer Fork
 
-## Non-things build instructions
+This is a fork of Non-Sequencer, inteneded as a sister project for Stazed's Non-XT forks.
 
-This repository contains all of the non-* software.
+Big differences are:
+
+Fixed errors for newer C++ standard </br>
+Changed to xmake build system </br>
+
+TODO:
+Introduce some built-in humanisation options
+Add pure FLTK build
+
+
+
+## Reasoning:
+
+Stazed has no interest in maintaining a non-sequencer fork due to maintaining Seq32/Seq42.
+However I wanted a sequencer with JACK-MIDI support, and a filterable "piano roll" for doing drums etc., which Non already has with it's instrument files.
+
+I tried Seq66 but it was way too confusing for me and it's JACK-MIDI implementation was not what I wanted, automatically creating named output ports for other JACK-MIDI clients it detects instead of just providing "Seq66 MIDI Outs".
+
+I also like Non's overall lightness as the only other options with JACK-MIDI I found are much heavier, those being MuSE (a whole DAW, which I don't need given I'm using Non-XT) and Hydrogen which can be set up to sequence. I did consider working on Aria Maestosa but that was on the other end of the scale being too simplistic.
 
 ### Getting NTK
+Your distribution may have NTK available from the package manager. 
+If not grab it from Stazed's repo as it has some minor fixes.
 
-If you just cloned the non repository or just executed git pull, then
-you should also run
-
-```
-git submodule update --init
-```
-
-to pull down the latest NTK code required by Non. Git does *not* do
-this automatically.
-
-### Building NTK
-
-If you don't have NTK installed system-wide (which isn't very likely
-yet) you *MUST* begin the build process by typing:
+### Building
+Ensure the dependencies are available, then simply:
 
 ```
-cd lib/ntk
-./waf configure
-./waf
+xmake
+sudo xmake install
 ```
+The included "instruments" folder is no longer in the home directory, but in:
 
-Once NTK has been built you must install it system-wide before
-attempting to build the non-* programs.
+/usr/local/share/non-sequencer/instruments
 
-To install NTK type:
+When it's implemented you will be able to add your own under:
 
-```
-su -c './waf install'
-```
-
-### Build all projects
-
-Typing:
-
-```
-./waf configure
-./waf
- su -c './waf install'
-```
-    
-from the base of the checkout of the Non git repository will build and
-install all of the non-* programs together.
-
-### Build a single project
-
-Typing:
-
-```
-./waf configure --project=[timline|sequencer|mixer|session-manager]
-./waf
-su -c './waf install'
-```
-
+/home/.local/share/non-sequencer/instruments
