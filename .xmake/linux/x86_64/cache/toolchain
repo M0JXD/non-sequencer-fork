@@ -1,32 +1,62 @@
 {
     tool_target_nonlib_linux_x86_64_cc = {
-        toolname = "gcc",
         toolchain_info = {
-            cachekey = "gcc_arch_x86_64_plat_linux",
+            name = "gcc",
             plat = "linux",
             arch = "x86_64",
-            name = "gcc"
+            cachekey = "gcc_arch_x86_64_plat_linux"
         },
+        toolname = "gcc",
+        program = "/usr/bin/gcc"
+    },
+    tool_target_nonlib_linux_x86_64_sh = {
+        toolchain_info = {
+            name = "gcc",
+            plat = "linux",
+            arch = "x86_64",
+            cachekey = "gcc_arch_x86_64_plat_linux"
+        },
+        toolname = "gxx",
+        program = "/usr/bin/g++"
+    },
+    tool_target_FL_linux_x86_64_cc = {
+        toolchain_info = {
+            name = "gcc",
+            plat = "linux",
+            arch = "x86_64",
+            cachekey = "gcc_arch_x86_64_plat_linux"
+        },
+        toolname = "gcc",
         program = "/usr/bin/gcc"
     },
     ["tool_target_non-sequencer_linux_x86_64_cc"] = {
-        toolname = "gcc",
         toolchain_info = {
-            cachekey = "gcc_arch_x86_64_plat_linux",
+            name = "gcc",
             plat = "linux",
             arch = "x86_64",
-            name = "gcc"
+            cachekey = "gcc_arch_x86_64_plat_linux"
         },
+        toolname = "gcc",
         program = "/usr/bin/gcc"
     },
-    tool_target_FL_linux_x86_64_cc = {
-        toolname = "gcc",
+    tool_target_FL_linux_x86_64_ar = {
         toolchain_info = {
-            cachekey = "gcc_arch_x86_64_plat_linux",
+            name = "gcc",
             plat = "linux",
             arch = "x86_64",
-            name = "gcc"
+            cachekey = "gcc_arch_x86_64_plat_linux"
         },
-        program = "/usr/bin/gcc"
+        toolname = "ar",
+        program = "/usr/bin/ar"
+    },
+    ["tool_target_non-sequencer_linux_x86_64_ld"] = {
+        toolchain_info = {
+            name = "gcc",
+            plat = "linux",
+            arch = "x86_64",
+            cachekey = "gcc_arch_x86_64_plat_linux"
+        },
+        toolname = "gxx",
+        program = "/usr/bin/g++"
     }
 }

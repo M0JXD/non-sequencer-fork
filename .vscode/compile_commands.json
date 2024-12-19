@@ -81,71 +81,71 @@
 },
 {
   "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/jack.C.o", "src/jack.C"],
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-DVERSION=2", "-DSYSTEM_PATH=\"/usr/local/share/non-sequencer\"", "-DDOCUMENT_PATH=\"/usr/local/share/doc\"", "-DPIXMAP_PATH=\"/usr/local/share/pixmaps\"", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/jack.C.o", "src/jack.C"],
   "file": "src/jack.C"
 },
 {
   "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/NSM.C.o", "src/NSM.C"],
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-DVERSION=2", "-DSYSTEM_PATH=\"/usr/local/share/non-sequencer\"", "-DDOCUMENT_PATH=\"/usr/local/share/doc\"", "-DPIXMAP_PATH=\"/usr/local/share/pixmaps\"", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/NSM.C.o", "src/NSM.C"],
   "file": "src/NSM.C"
 },
 {
   "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/pattern.C.o", "src/pattern.C"],
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-DVERSION=2", "-DSYSTEM_PATH=\"/usr/local/share/non-sequencer\"", "-DDOCUMENT_PATH=\"/usr/local/share/doc\"", "-DPIXMAP_PATH=\"/usr/local/share/pixmaps\"", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/pattern.C.o", "src/pattern.C"],
   "file": "src/pattern.C"
 },
 {
   "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/sequence.C.o", "src/sequence.C"],
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-DVERSION=2", "-DSYSTEM_PATH=\"/usr/local/share/non-sequencer\"", "-DDOCUMENT_PATH=\"/usr/local/share/doc\"", "-DPIXMAP_PATH=\"/usr/local/share/pixmaps\"", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/sequence.C.o", "src/sequence.C"],
   "file": "src/sequence.C"
 },
 {
   "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/grid.C.o", "src/grid.C"],
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-DVERSION=2", "-DSYSTEM_PATH=\"/usr/local/share/non-sequencer\"", "-DDOCUMENT_PATH=\"/usr/local/share/doc\"", "-DPIXMAP_PATH=\"/usr/local/share/pixmaps\"", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/grid.C.o", "src/grid.C"],
   "file": "src/grid.C"
 },
 {
   "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/instrument.C.o", "src/instrument.C"],
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-DVERSION=2", "-DSYSTEM_PATH=\"/usr/local/share/non-sequencer\"", "-DDOCUMENT_PATH=\"/usr/local/share/doc\"", "-DPIXMAP_PATH=\"/usr/local/share/pixmaps\"", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/instrument.C.o", "src/instrument.C"],
   "file": "src/instrument.C"
 },
 {
   "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/phrase.C.o", "src/phrase.C"],
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-DVERSION=2", "-DSYSTEM_PATH=\"/usr/local/share/non-sequencer\"", "-DDOCUMENT_PATH=\"/usr/local/share/doc\"", "-DPIXMAP_PATH=\"/usr/local/share/pixmaps\"", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/phrase.C.o", "src/phrase.C"],
   "file": "src/phrase.C"
 },
 {
   "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/canvas.C.o", "src/canvas.C"],
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-DVERSION=2", "-DSYSTEM_PATH=\"/usr/local/share/non-sequencer\"", "-DDOCUMENT_PATH=\"/usr/local/share/doc\"", "-DPIXMAP_PATH=\"/usr/local/share/pixmaps\"", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/canvas.C.o", "src/canvas.C"],
   "file": "src/canvas.C"
 },
 {
   "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/scale.C.o", "src/scale.C"],
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-DVERSION=2", "-DSYSTEM_PATH=\"/usr/local/share/non-sequencer\"", "-DDOCUMENT_PATH=\"/usr/local/share/doc\"", "-DPIXMAP_PATH=\"/usr/local/share/pixmaps\"", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/scale.C.o", "src/scale.C"],
   "file": "src/scale.C"
 },
 {
   "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/main.C.o", "src/main.C"],
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-DVERSION=2", "-DSYSTEM_PATH=\"/usr/local/share/non-sequencer\"", "-DDOCUMENT_PATH=\"/usr/local/share/doc\"", "-DPIXMAP_PATH=\"/usr/local/share/pixmaps\"", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/main.C.o", "src/main.C"],
   "file": "src/main.C"
 },
 {
   "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/mapping.C.o", "src/mapping.C"],
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-DVERSION=2", "-DSYSTEM_PATH=\"/usr/local/share/non-sequencer\"", "-DDOCUMENT_PATH=\"/usr/local/share/doc\"", "-DPIXMAP_PATH=\"/usr/local/share/pixmaps\"", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/mapping.C.o", "src/mapping.C"],
   "file": "src/mapping.C"
 },
 {
   "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/smf.C.o", "src/smf.C"],
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-DVERSION=2", "-DSYSTEM_PATH=\"/usr/local/share/non-sequencer\"", "-DDOCUMENT_PATH=\"/usr/local/share/doc\"", "-DPIXMAP_PATH=\"/usr/local/share/pixmaps\"", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/smf.C.o", "src/smf.C"],
   "file": "src/smf.C"
 },
 {
   "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/debug.C.o", "src/debug.C"],
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-DVERSION=2", "-DSYSTEM_PATH=\"/usr/local/share/non-sequencer\"", "-DDOCUMENT_PATH=\"/usr/local/share/doc\"", "-DPIXMAP_PATH=\"/usr/local/share/pixmaps\"", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/debug.C.o", "src/debug.C"],
   "file": "src/debug.C"
 },
 {
   "directory": "/home/jamiedrinkell/development/non-sequencer-xt",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/transport.C.o", "src/transport.C"],
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-Inonlib", "-IFL", "-DVERSION=2", "-DSYSTEM_PATH=\"/usr/local/share/non-sequencer\"", "-DDOCUMENT_PATH=\"/usr/local/share/doc\"", "-DPIXMAP_PATH=\"/usr/local/share/pixmaps\"", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/transport.C.o", "src/transport.C"],
   "file": "src/transport.C"
 }]

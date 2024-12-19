@@ -16,6 +16,10 @@
             "intelliSenseMode": "linux-gcc-x64",
             "compilerArgs": [
                 ""
+            ],
+            "defines": [
+                "VERSION",
+                "SYSTEM_PATH=/usr/local/share/non-sequencer"
             ]
         }
     ],

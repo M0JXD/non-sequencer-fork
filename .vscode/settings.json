@@ -66,6 +66,8 @@
     "Fl_DialX.C": "cpp",
     "focus_frame.C": "cpp",
     "phrase.C": "cpp",
-    "ui.C": "cpp"
+    "ui.C": "cpp",
+    "main.C": "cpp",
+    "instrument.C": "cpp"
   }
 }

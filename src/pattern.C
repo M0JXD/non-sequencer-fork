@@ -54,7 +54,7 @@ pattern::pattern ( void )
     int _bars = 2;
 
     // we need to reinitalize this.
-    data *d = const_cast< data * >( _rd );
+    struct data *d = const_cast<struct data * >( _rd );
 
     d->length = x_to_ts( _bpb * _ppqn * _bars );
 
@@ -414,7 +414,7 @@ void
 pattern::play ( tick_t start, tick_t end ) const
 {
     /* get our own copy of this pointer so UI thread can change it. */
-    const data *d = const_cast< const data * >(_rd);
+    const struct data *d = const_cast< const struct data * >(_rd);
 
     if ( start > _end )
     {

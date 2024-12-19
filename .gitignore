@@ -7,4 +7,5 @@ TAGS
 .waf*
 build
 attic
-.xmake/
+.xmake/*
+.vscode/*
