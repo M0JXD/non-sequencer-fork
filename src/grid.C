@@ -36,11 +36,11 @@ Grid::Grid ( void )
     _number = 0;
     _height = 0;
 
-    _rd = new data;
+    _rd = new struct data;
     _rw = NULL;
 
     // we need to initialize it here.
-    data *d = (data *)_rd;
+    struct data *d = (struct data *)_rd;
 
     _mode = 0;
     _locked = 0;
@@ -79,7 +79,7 @@ Grid::~Grid ( void )
 /* copy constructor */
 Grid::Grid ( const Grid &rhs ) : sigc::trackable()
 {
-    _rd = new data( *rhs._rd );
+    _rd = new struct data( *rhs._rd );
     _rw = NULL;
 
     _name = rhs._name ? strdup( rhs._name ) : NULL;
@@ -104,7 +104,7 @@ void
 Grid::lock ( void )
 {
     if ( ! _locked++ )
-        _rw = new data( *_rd );
+        _rw = new struct data( *_rd );
 }
 
 void
@@ -112,11 +112,11 @@ Grid::unlock ( void )
 {
     if ( 0 == --_locked )
     {
-        _history.push_back( const_cast<data *>( _rd ) );
+        _history.push_back( const_cast<struct data *>( _rd ) );
 
         if ( _history.size() > MAX_UNDO + 1 )
         {
-            data *d = _history.front();
+            struct data *d = _history.front();
 
             delete d;
 
@@ -124,7 +124,7 @@ Grid::unlock ( void )
         }
 
         // swap the copy back in (atomically).
-        _rd = (const data *)_rw;
+        _rd = (const struct data *)_rw;
 
         _rw = NULL;
 
@@ -135,7 +135,7 @@ Grid::unlock ( void )
 event *
 Grid::_event ( int x, int y, bool write ) const
 {
-    const data *d = const_cast< data * >(_rd);
+    const struct data *d = const_cast< struct data * >(_rd);
 
     const event_list *r = write ? &_rw->events : &d->events;
 
@@ -765,7 +765,7 @@ Grid::_relink ( void )
 void
 Grid::dump ( smf *f, int channel ) const
 {
-    data *d = const_cast<data *>(_rd);
+    struct data *d = const_cast<struct data *>(_rd);
 
     midievent me;
 
@@ -781,7 +781,7 @@ Grid::dump ( smf *f, int channel ) const
 void
 Grid::print ( void ) const
 {
-    data *d = const_cast<data *>(_rd);
+    struct data *d = const_cast<struct data *>(_rd);
 
     for ( event *e = d->events.first(); e; e = e->next() )
         e->print();
@@ -794,7 +794,7 @@ Grid::print ( void ) const
 void
 Grid::draw_notes ( draw_note_func_t draw_note, void *userdata ) const 
 {
-    data *d = const_cast< data *>( _rd );
+    struct data *d = const_cast< struct data *>( _rd );
 
     for ( const event *e = d->events.first(); e; e = e->next() )
     {
@@ -991,12 +991,12 @@ Grid::undo ( void )
     if ( ! _history.size() )
         return;
 
-    data *d = _history.back();
+    struct data *d = _history.back();
     
     _history.pop_back();
 
     // swap the copy back in (atomically).
-    _rd = (const data *)d;
+    _rd = (const struct data *)d;
     
     _rw = NULL;
     
@@ -1007,7 +1007,7 @@ Grid::undo ( void )
 event_list *
 Grid::events ( void ) const
 {
-    data * d = const_cast< data * >( _rd );
+    struct data * d = const_cast< struct data * >( _rd );
 
     return new event_list( d->events );
 }
