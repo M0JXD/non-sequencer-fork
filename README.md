@@ -2,16 +2,16 @@
 
 This is a fork of Non-Sequencer, inteneded as a sister project for Stazed's Non-XT forks.
 
-Big differences are:
+The differences are:
 
-Fixed errors for newer C++ standard </br>
-Changed to xmake build system </br>
++ Fixed errors to build with newer C++ standard. </br>
++ Changed to xmake build system. </br>
++ Change instrument directories.
 
-TODO:
-Introduce some built-in humanisation options
-Add pure FLTK build
-
-
+### TODO:
++ Introduce some built-in humanisation options.
++ Add pure FLTK build.
++ Link against Stazed's FL and nonlib.
 
 ## Reasoning:
 
@@ -22,9 +22,15 @@ I tried Seq66 but it was way too confusing for me and it's JACK-MIDI implementat
 
 I also like Non's overall lightness as the only other options with JACK-MIDI I found are much heavier, those being MuSE (a whole DAW, which I don't need given I'm using Non-XT) and Hydrogen which can be set up to sequence. I did consider working on Aria Maestosa but that was on the other end of the scale being too simplistic.
 
+## Dependencies
++ NTK (see below)
++ liblo-dev
++ libjack-jackd2-dev
++ libcairo-dev
+
 ### Getting NTK
 Your distribution may have NTK available from the package manager. 
-If not grab it from Stazed's repo as it has some minor fixes.
+If not, grab it from Stazed's repo as it has some minor fixes.
 
 ### Building
 Ensure the dependencies are available, then simply:
@@ -34,9 +40,10 @@ xmake
 sudo xmake install
 ```
 The included "instruments" folder is no longer in the home directory, but in:
-
+```
 /usr/local/share/non-sequencer/instruments
-
+```
 When it's implemented you will be able to add your own under:
-
-/home/.local/share/non-sequencer/instruments
+```
+~/.local/share/non-sequencer/instruments
+```

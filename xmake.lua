@@ -1,9 +1,6 @@
 -- N.B. Need to automate .fl code generation
-
 target("non-sequencer")
     set_kind("binary")
-
-    -- Source files
     add_files("src/*.C")
     add_files("src/gui/*.C")
     add_files("src/NSM/*.C")
