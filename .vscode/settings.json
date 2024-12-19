@@ -68,6 +68,10 @@
     "phrase.C": "cpp",
     "ui.C": "cpp",
     "main.C": "cpp",
-    "instrument.C": "cpp"
+    "instrument.C": "cpp",
+    "jack.C": "cpp",
+    "smf.C": "cpp",
+    "event_list.C": "cpp",
+    "About_Dialog.C": "cpp"
   }
 }

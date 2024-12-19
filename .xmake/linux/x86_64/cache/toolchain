@@ -4,9 +4,9 @@
         toolname = "gcc",
         toolchain_info = {
             plat = "linux",
-            cachekey = "gcc_arch_x86_64_plat_linux",
+            arch = "x86_64",
             name = "gcc",
-            arch = "x86_64"
+            cachekey = "gcc_arch_x86_64_plat_linux"
         }
     },
     ["tool_target_non-sequencer_linux_x86_64_ld"] = {
@@ -14,9 +14,9 @@
         toolname = "gxx",
         toolchain_info = {
             plat = "linux",
-            cachekey = "gcc_arch_x86_64_plat_linux",
+            arch = "x86_64",
             name = "gcc",
-            arch = "x86_64"
+            cachekey = "gcc_arch_x86_64_plat_linux"
         }
     }
 }
