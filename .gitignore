@@ -17,3 +17,8 @@ Fl_Text_Edit_Window.C
 Fl_Text_Edit_Window.H
 New_Project_Dialog.C
 New_Project_Dialog.H
+
+ui.C
+ui.H
+event_edit.C
+event_edit.H

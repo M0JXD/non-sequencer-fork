@@ -33,7 +33,22 @@ Your distribution may have NTK available from the package manager.
 If not, grab it from Stazed's repo as it has some minor fixes.
 
 ### Building
-Ensure the dependencies are available, then simply:
+First, ensure the dependencies are available. The are listed in xmake.lua under "add_links".
+
+The code for the fluid files is currently not generated automatically, you can do so by:
+
+```
+cd src/gui/
+ntk-fluid -c ui.fl
+ntk-fluid -c event_edit.fl
+cd ../../FL
+ntk-fluid -c About_Dialog.fl
+ntk-fluid -c Fl_Text_Edit_Window.fl
+ntk-fluid -c New_Project_Dialog.fl
+cd ..
+```
+
+Then simply:
 
 ```
 xmake
