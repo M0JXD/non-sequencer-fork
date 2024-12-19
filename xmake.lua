@@ -1,5 +1,14 @@
--- N.B. Need to automate .fl code generation
+-- TODO:
+-- Need to automate .fl code generation
+
+-- Does xmake disable sse2 by default?
+option("NativeOptimizations")
+    set_default(true)
+    set_showmenu(true)
+    add_vectorexts("sse2")
+
 target("non-sequencer")
+    add_options("NativeOptimizations")
     set_kind("binary")
     add_files("src/*.C")
     add_files("src/gui/*.C")
@@ -11,7 +20,7 @@ target("non-sequencer")
     add_files("nonlib/OSC/*.C")
     add_files("nonlib/JACK/*.C")
     -- NSM support is already in src
-    --add_files("nonlib/NSM/*.C")
+    -- add_files("nonlib/NSM/*.C")
 
     -- FL Files
     add_files("FL/*.C")
@@ -31,4 +40,17 @@ target("non-sequencer")
     add_sysincludedirs("/usr/lib/x86_64-linux-gnu/sigc++-2.0/include")
 
     -- Link system libraries
-    add_links("pthread", "jack", "sigc-2.0", "lo", "X11", "ntk", "ntk_images", "cairo")
+    add_syslinks("pthread", "jack", "sigc-2.0", "lo", "X11", "ntk", "ntk_images", "cairo")
+
+    before_build(function (target)
+        os.cd("src/gui")
+        os.run("ntk-fluid -c ui.fl")
+        os.run("ntk-fluid -c event_edit.fl")
+        os.cd("-")
+        os.cd("FL")
+        os.run("ntk-fluid -c About_Dialog.fl")
+        os.run("ntk-fluid -c Fl_Text_Edit_Window.fl")
+        os.run("ntk-fluid -c New_Project_Dialog.fl")
+        os.cd("-")
+    end)
+   

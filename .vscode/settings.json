@@ -72,6 +72,7 @@
     "jack.C": "cpp",
     "smf.C": "cpp",
     "event_list.C": "cpp",
-    "About_Dialog.C": "cpp"
+    "About_Dialog.C": "cpp",
+    "event_edit.C": "cpp"
   }
 }

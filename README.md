@@ -54,6 +54,12 @@ Then simply:
 xmake
 sudo xmake install
 ```
+
+To build without native optimisations run this beforehand:
+```
+xmake f --NativeOptimizations=n -v
+```
+
 The included "instruments" folder is no longer in the home directory, but in:
 ```
 /usr/local/share/non-sequencer/instruments
