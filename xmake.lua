@@ -20,6 +20,17 @@ target("non-sequencer")
     add_sysincludedirs("/usr/lib/x86_64-linux-gnu/sigc++-2.0/include")
     add_syslinks("pthread", "jack", "sigc-2.0", "lo", "X11", "ntk", "ntk_images", "cairo")
 
+    after_clean(function (target)
+        os.rm("$(scriptdir)/src/gui/**.C")
+        os.rm("$(scriptdir)/src/gui/**.H")
+        os.rm("$(scriptdir)/FL/About_Dialog.C")
+        os.rm("$(scriptdir)/FL/About_Dialog.H")
+        os.rm("$(scriptdir)/FL/Fl_Text_Edit_Window.C")
+        os.rm("$(scriptdir)/FL/Fl_Text_Edit_Window.H")
+        os.rm("$(scriptdir)/FL/New_Project_Dialog.C")
+        os.rm("$(scriptdir)/FL/New_Project_Dialog.H")
+    end)
+
     after_install(function (target)
         -- TODO: Copy the icons, docs and instruments 
         
