@@ -1,12 +1,6 @@
--- Does xmake disable sse2 by default?
-option("NativeOptimizations")
-    set_default(true)
-    set_showmenu(true)
-    add_vectorexts("sse2")
-
-target("non-sequencer")
+rule("ntk-fluid")
     -- Build the .fl files
-    before_build(function (target)
+    on_load(function (target)
         os.cd("src/gui")
         os.run("ntk-fluid -c ui.fl")
         os.run("ntk-fluid -c event_edit.fl")
@@ -18,6 +12,14 @@ target("non-sequencer")
         os.cd("-")
     end)
 
+option("NativeOptimizations")
+    -- Does xmake disable sse2 by default?
+    set_default(true)
+    set_showmenu(true)
+    add_vectorexts("sse2")
+
+target("non-sequencer")
+    add_rules("ntk-fluid")
     add_options("NativeOptimizations")
     set_kind("binary")
     add_files("src/*.C")
