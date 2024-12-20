@@ -1,3 +1,30 @@
+target("non-sequencer")
+    set_kind("binary")
+    add_files("src/*.C", "src/gui/*.C", "src/NSM/*.C")
+    add_files("nonlib/*.C", "nonlib/MIDI/*.C", "nonlib/OSC/*.C", "nonlib/JACK/*.C")
+    -- add_files("nonlib/NSM/*.C")  -- NSM support is already in src
+    add_files("FL/*.C")
+    --add_files("FL/util/*.C")
+
+    add_rules("ntk-fluid")
+    add_options("NativeOptimizations")
+
+    add_defines("VERSION=\"2\"")
+    add_defines("SYSTEM_PATH=\"/usr/local/share/non-sequencer\"")
+    add_defines("DOCUMENT_PATH=\"/usr/local/share/doc\"")
+    add_defines("PIXMAP_PATH=\"/usr/local/share/pixmaps\"")
+
+    add_includedirs("nonlib", "FL")
+    add_sysincludedirs("/usr/local/include/ntk")
+    add_sysincludedirs("/usr/include/sigc++-2.0")
+    add_sysincludedirs("/usr/lib/x86_64-linux-gnu/sigc++-2.0/include")
+    add_syslinks("pthread", "jack", "sigc-2.0", "lo", "X11", "ntk", "ntk_images", "cairo")
+
+    after_install(function (target)
+        -- TODO: Copy the icons, docs and instruments 
+        
+    end)
+
 rule("ntk-fluid")
     -- Build the .fl files
     on_load(function (target)
@@ -17,40 +44,4 @@ option("NativeOptimizations")
     set_default(true)
     set_showmenu(true)
     add_vectorexts("sse2")
-
-target("non-sequencer")
-    add_rules("ntk-fluid")
-    add_options("NativeOptimizations")
-    set_kind("binary")
-    add_files("src/*.C")
-    add_files("src/gui/*.C")
-    add_files("src/NSM/*.C")
-
-    -- nonlib files
-    add_files("nonlib/*.C")
-    add_files("nonlib/MIDI/*.C")
-    add_files("nonlib/OSC/*.C")
-    add_files("nonlib/JACK/*.C")
-    -- NSM support is already in src
-    -- add_files("nonlib/NSM/*.C")
-
-    -- FL Files
-    add_files("FL/*.C")
-    --add_files("FL/util/*.C")
-
-    -- Preprocessor definitions
-    add_defines("VERSION=\"2\"")
-    add_defines("SYSTEM_PATH=\"/usr/local/share/non-sequencer\"")
-    add_defines("DOCUMENT_PATH=\"/usr/local/share/doc\"")
-    add_defines("PIXMAP_PATH=\"/usr/local/share/pixmaps\"")
-
-    -- Include directories
-    add_includedirs("nonlib")
-    add_includedirs("FL")
-    add_sysincludedirs("/usr/local/include/ntk")
-    add_sysincludedirs("/usr/include/sigc++-2.0")
-    add_sysincludedirs("/usr/lib/x86_64-linux-gnu/sigc++-2.0/include")
-
-    -- Link system libraries
-    add_syslinks("pthread", "jack", "sigc-2.0", "lo", "X11", "ntk", "ntk_images", "cairo")
    
