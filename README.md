@@ -25,7 +25,7 @@ The .deb on KXStudio refused to pick up instrument files, so I new I needed to f
 
 At the moment I'm weighing up whether to keep working on this, or look at trying to add NSM and JACK-MIDI support to the excellent Helio Sequencer, and continuing to use Hydrogen for drums. Or maybe reviving/contributing to something else, I've yet to try/test everything!
 
-## Dependencies
+## Dependencies (Debian names)
 + NTK (see below)
 + liblo-dev
 + libjack-jackd2-dev
@@ -36,8 +36,7 @@ Your distribution may have NTK available from the package manager.
 If not, grab it from Stazed's repo as it has some minor fixes.
 
 ### Building
-First, ensure the dependencies are available, as well as the xmake build system. The are listed in xmake.lua under "add_links".
-
+First, ensure the dependencies are available, as well as the xmake build system.
 Then simply:
 
 ```
