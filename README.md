@@ -21,7 +21,7 @@ I wanted a sequencer to go with Stazed's Non-XT with JACK-MIDI and NSM support, 
 
 The only other options with JACK-MIDI I found are much heavier, those being MuSE (a whole DAW and it's complicated to set up and use) and Hydrogen which can be set up to sequence. I did consider working on Aria Maestosa which had some preliminary JACK support added a while ago, but that was on the other end of the scale being too simplistic. Most everything else (https://wiki.linuxaudio.org/apps/notation_apps, https://wiki.linuxaudio.org/apps/midi_apps) is either the wrong tool or long abandoned. So I decided to go back and try Non.
 
-The .deb on KXStudio refused to pick up instrument files, so I new I needed to fix that from source. Upon trying to build Non-Sequencer I hit various issues due to outdated waf, not being able to find libraries, and compile errors due to outdated coding standard. So I fixed those issues by porting to build system that shouldn't go out of date as quickly but is still easy to use, and doing some minor code edits.
+The .deb on KXStudio refused to pick up instrument files, so I knew I needed to fix that from source. Upon trying to build Non-Sequencer I hit various issues due to outdated waf, not being able to find libraries, and compile errors due to outdated coding standard. So I fixed those issues by porting to build system that shouldn't go out of date as quickly but is still easy to use, and doing some minor code edits.
 
 At the moment I'm weighing up whether to keep working on this, or look at trying to add NSM and JACK-MIDI support to the excellent Helio Sequencer, and continuing to use Hydrogen for drums. Or maybe reviving/contributing to something else, I've yet to try/test everything!
 
