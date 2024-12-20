@@ -55,7 +55,7 @@ target("non-sequencer")
 
             -- Install instruments
             sudo.run("mkdir -p /usr/local/share/non-sequencer/instruments")
-            sudo.run("cp -r $(projectdir)/instruments /usr/local/share/non-sequencer/instruments")
+            sudo.run("cp -r $(projectdir)/instruments/. /usr/local/share/non-sequencer/instruments")
 
             -- Install desktop file
             sudo.run("cp $(projectdir)/non-sequencer.desktop.in /usr/local/share/applications/non-sequencer.desktop")
