@@ -33,13 +33,13 @@ Your distribution may have NTK available from the package manager.
 If not, grab it from Stazed's repo as it has some minor fixes.
 
 ### Building
-First, ensure the dependencies are available. The are listed in xmake.lua under "add_links".
+First, ensure the dependencies are available, as well as the xmake build system. The are listed in xmake.lua under "add_links".
 
 Then simply:
 
 ```
 xmake
-sudo xmake install
+xmake install --admin
 ```
 
 To build without native optimisations run this beforehand:
