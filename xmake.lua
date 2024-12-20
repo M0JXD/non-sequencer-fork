@@ -1,5 +1,3 @@
-
-
 target("non-sequencer")
     set_kind("binary")
     add_files("src/*.C", "src/gui/*.C", "src/NSM/*.C")
@@ -40,9 +38,9 @@ target("non-sequencer")
         if sudo.has() then
             -- Install documentation
             sudo.run("mkdir -p /usr/local/share/doc/non-sequencer")
-            sudo.run("cp -r $(projectdir)/doc /usr/local/share/doc/non-sequencer")
+            sudo.run("cp -r $(projectdir)/doc/. /usr/local/share/doc/non-sequencer")
 
-            -- Install icons at multiple sizes
+            -- Install icons
             local sizes = {"16x16", "32x32", "36x36", "48x48", "64x64", "72x72", "96x96", "128x128", "192x192", "256x256", "512x512" }
             for _, size in ipairs(sizes) do
                 local src = string.format("$(projectdir)/icons/hicolor/%s/apps/non-sequencer.png", size)
@@ -52,14 +50,14 @@ target("non-sequencer")
             end
 
             -- Install pixmap
-            sudo.run("mkdir -p /usr/local/share/pixmaps")
-            sudo.run("cp -f $(projectdir)/icons/hicolor/256x256/apps/non-sequencer.png /usr/local/share/pixmaps/non-sequencer")
+            sudo.run("mkdir -p /usr/local/share/pixmaps/non-sequencer")
+            sudo.run("cp -f $(projectdir)/icons/hicolor/256x256/apps/non-sequencer.png /usr/local/share/pixmaps/non-sequencer/icon-256x256.png")
 
             -- Install instruments
             sudo.run("mkdir -p /usr/local/share/non-sequencer/instruments")
             sudo.run("cp -r $(projectdir)/instruments /usr/local/share/non-sequencer/instruments")
 
-            -- Desktop File
+            -- Install desktop file
             sudo.run("cp $(projectdir)/non-sequencer.desktop.in /usr/local/share/applications/non-sequencer.desktop")
         end
     end)
@@ -78,7 +76,7 @@ target("non-sequencer")
             end
 
             -- Remove pixmaps
-            sudo.run("rm -f /usr/local/share/pixmaps/non-sequencer")
+            sudo.run("rm -rf /usr/local/share/pixmaps/non-sequencer")
 
             -- Remove instruments
             sudo.run("rm -rf /usr/local/share/non-sequencer/instruments")

@@ -10,8 +10,8 @@ The differences are:
 + Change instrument directory path.
 
 ### Would be nice to add:
-+ Introduce some built-in humanisation options.
-+ Add pure FLTK build.
++ Some built-in humanisation options.
++ Pure FLTK build, à la Stazed.
 + Link against Stazed's FL and nonlib.
 + An end user instrument directory, perhaps ~/.local/share/non-sequencer/instruments
 
@@ -43,11 +43,6 @@ Then simply:
 ```
 xmake
 xmake install --admin
-```
-
-To build without native optimisations run this beforehand:
-```
-xmake f --NativeOptimizations=n -v
 ```
 
 The included "instruments" folder is no longer in the home directory, but in:
