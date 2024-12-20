@@ -1,6 +1,3 @@
--- TODO:
--- Need to automate .fl code generation
-
 -- Does xmake disable sse2 by default?
 option("NativeOptimizations")
     set_default(true)
@@ -8,6 +5,19 @@ option("NativeOptimizations")
     add_vectorexts("sse2")
 
 target("non-sequencer")
+    -- Build the .fl files
+    before_build(function (target)
+        os.cd("src/gui")
+        os.run("ntk-fluid -c ui.fl")
+        os.run("ntk-fluid -c event_edit.fl")
+        os.cd("-")
+        os.cd("FL")
+        os.run("ntk-fluid -c About_Dialog.fl")
+        os.run("ntk-fluid -c Fl_Text_Edit_Window.fl")
+        os.run("ntk-fluid -c New_Project_Dialog.fl")
+        os.cd("-")
+    end)
+
     add_options("NativeOptimizations")
     set_kind("binary")
     add_files("src/*.C")
@@ -41,16 +51,4 @@ target("non-sequencer")
 
     -- Link system libraries
     add_syslinks("pthread", "jack", "sigc-2.0", "lo", "X11", "ntk", "ntk_images", "cairo")
-
-    before_build(function (target)
-        os.cd("src/gui")
-        os.run("ntk-fluid -c ui.fl")
-        os.run("ntk-fluid -c event_edit.fl")
-        os.cd("-")
-        os.cd("FL")
-        os.run("ntk-fluid -c About_Dialog.fl")
-        os.run("ntk-fluid -c Fl_Text_Edit_Window.fl")
-        os.run("ntk-fluid -c New_Project_Dialog.fl")
-        os.cd("-")
-    end)
    
