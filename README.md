@@ -9,12 +9,16 @@ The differences are:
 + Changed to xmake build system.
 + Change instrument directory path.
 
-### Would be nice to add:
+### Would be nice to do:
 + Some built-in humanisation options.
 + NSM Hide/Show GUI
 + Pure FLTK build, à la Stazed.
 + Link against Stazed's FL and nonlib.
 + An end user instrument directory, perhaps ~/.local/share/non-sequencer/instruments
++ Fix some/bugs: 
+1) If you enter a pattern and the note goes out of bounds of the set of bars, the pattern length gets longer to accomodate, disregarding time signature, even after those notes are removed. To get it back, select a higher amount of bars than the artifical length, then a lower amount. (is this a feature or a bug? :/)
+2) If there is a note already to the right of where you want to place one the sequencer might not allow you to place it. To work around this, remove the note(s) to the right, then enter them again afterwards. Alternatively you can choose a shorter note duration to maintain a gap to the right of the entered note.
+3) With the Default intrument, scrolling down can cause the labels to become misaligned.
 
 ## Reasoning:
 
