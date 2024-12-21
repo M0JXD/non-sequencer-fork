@@ -10,7 +10,7 @@ The differences are:
 + Change instrument directory path.
 
 ### Would be nice to add:
-+ Fix the bugs I've introduced (somehow 4/4 is ten beats to a bar now?)
++ Fix the bugs I've introduced (somehow 4/4 is ten beats to a bar now?) - I think some of the struct labels I added should have been struct pointers.
 + Some built-in humanisation options.
 + Pure FLTK build, à la Stazed.
 + Link against Stazed's FL and nonlib.
