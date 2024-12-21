@@ -13,7 +13,7 @@ target("non-sequencer")
     add_defines("DOCUMENT_PATH=\"/usr/local/share/doc\"")
     add_defines("PIXMAP_PATH=\"/usr/local/share/pixmaps\"")
 
-    add_includedirs("nonlib", "FL")
+    add_includedirs("nonlib", "FL", "nonlib/MIDI")
 
     -- without this it trys to build against FLTK, despite sys_link below.
     add_sysincludedirs("/usr/local/include/ntk")
