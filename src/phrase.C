@@ -173,7 +173,7 @@ void
 phrase::play ( tick_t start, tick_t end )
 {
     /* get our own copy of this pointer so UI thread can change it. */
-    const struct data *d = const_cast< const struct data * >(_rd);
+    const ::data *d = const_cast< const ::data * >(_rd);
 
     if ( start > _end )
     {

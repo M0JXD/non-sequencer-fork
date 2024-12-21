@@ -32,7 +32,7 @@
 
 sequence::sequence ( void )
 {
-    _rd = new data;
+    _rd = new sequence::data;
     _name = _notes = NULL;
 
     _index = 0;
@@ -44,9 +44,9 @@ void
 sequence::lock ( void )
 {
     // create a copy of the lock-free data.
-    _rw = new data;
+    _rw = new sequence::data;
 
-    struct data *d = const_cast< data *> (_rd);
+    sequence::data *d = const_cast< sequence::data *> (_rd);
 
     _rw->phrases = d->phrases;
     _rw->num     = d->num;

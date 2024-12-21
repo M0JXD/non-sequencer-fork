@@ -124,10 +124,10 @@ protected:
 
     // FIXME: shouldn't this be "volatile"?
 //    const volatile data *_rd;                                   /* read only data used by RT thread */
-    const struct data * volatile _rd;
-    struct data *_rw;                                                  /* temporary writable copy used by UI thread */
+    const ::data * volatile _rd;
+    ::data *_rw;                                                  /* temporary writable copy used by UI thread */
 
-    list <struct data *> _history;
+    list <::data *> _history;
 
     void _remove_marked ( void );
     MIDI::event * _event ( int x, int y, bool write ) const;
