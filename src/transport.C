@@ -17,6 +17,8 @@
 /* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 /*******************************************************************************/
 
+#include "NSM.H"
+
 #include <jack/jack.h>
 
 #include <stdlib.h>
@@ -28,6 +30,8 @@
 #include "const.h"
 
 extern jack_client_t *client;
+extern NSM_Client *nsm;
+extern char *instance_name;
 
 /* FIXME: use JackSyncCallback instead? (sync-callback) */
 
@@ -217,4 +221,24 @@ Transport::set_beat_type ( int n )
 
     _master_beat_type = n;
     _done = false;
+}
+
+void
+Transport::say_hello( void )
+{
+    lo_message m = lo_message_new ( );
+
+    lo_message_add ( m, "sssss",
+        "/non/hello",
+        osc_endpoint->url ( ),
+        APP_NAME,
+        VERSION,
+        instance_name );
+
+    nsm->broadcast ( m );
+
+    lo_message_free ( m );
+
+    // needed to indicate that for raysession
+    nsm->nsm_send_is_hidden ( nsm );
 }

@@ -27,6 +27,14 @@ using namespace sigc;
 
 #include <jack/transport.h>
 
+#include <lo/lo.h>
+#include "Endpoint.H"
+
+namespace OSC
+{
+class Endpoint;
+}
+
 typedef double playhead_t;
 
 class Transport : public trackable {
@@ -36,7 +44,7 @@ class Transport : public trackable {
     unsigned _master_beat_type;
 
 public:
-
+    OSC::Endpoint *osc_endpoint;
     signal <int, double> signal_tempo_change;
     signal <int, double> signal_bpb_change;
     signal <int, double> signal_beat_change;
@@ -79,6 +87,7 @@ public:
 
     static void timebase ( jack_transport_state_t state, jack_nframes_t nframes, jack_position_t *pos, int new_pos, void *arg );
 
+    void say_hello ( void );
 };
 
 extern Transport transport;

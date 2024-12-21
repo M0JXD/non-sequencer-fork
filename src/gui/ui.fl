@@ -321,7 +321,7 @@ if ( transport.rolling )
 ui->transport_state->do_callback();} {}
 } 
 
-class UI {open
+class UI {open selected
 } {
   decl {Fl_Text_Buffer *sequence_notes_buffer;} {private local
   }
@@ -367,11 +367,10 @@ phrase_canvas_widget->signal_settings_change.connect( sigc::mem_fun( this, &UI::
     code {delete seq_window;
 delete main_window;} {}
   }
-  Function {run()} {open
-  } {
+  Function {run()} {} {
     code {Fl::run();} {}
   }
-  Function {load_settings()} {open return_type void
+  Function {load_settings()} {return_type void
   } {
     code {char *path;
 
@@ -381,7 +380,7 @@ asprintf( &path, "%s/%s", config.user_config_dir, "view" );
 
 free( path );} {}
   }
-  Function {save_settings()} {open return_type void
+  Function {save_settings()} {return_type void
   } {
     code {char *path;
 
@@ -391,18 +390,17 @@ asprintf( &path, "%s/%s", config.user_config_dir, "view" );
 
 free( path );} {}
   }
-  Function {draw_overlay( void *v )} {open protected return_type {static void}
+  Function {draw_overlay( void *v )} {protected return_type {static void}
   } {
     code {((UI*)v)->draw_overlay();} {}
   }
-  Function {draw_overlay()} {open protected return_type void
+  Function {draw_overlay()} {protected return_type void
   } {
     code {Canvas *c = current_canvas();
 if ( c )
    c->draw_overlay();} {}
   }
-  Function {make_main_window()} {open
-  } {
+  Function {make_main_window()} {} {
     Fl_Window main_window {
       label {Non Sequencer}
       callback {// Ignore escape
@@ -650,7 +648,7 @@ int val = playlist_browser->value();
 if ( val )
 	playlist_browser->value( playlist_browser->value() + 1 );
 else
-	playlist_browser->value( playlist_browser->size() );} open selected
+	playlist_browser->value( playlist_browser->size() );} open
               xywh {5 590 235 30} color 69
             } {}
           }
@@ -1697,6 +1695,17 @@ else if ( tabs->value() == phrase_tab )
 	return phrase_canvas_widget;
 else
 	return NULL;} {}
+  }
+  Function {command_show_gui()} {open return_type void
+  } {
+    code {main_window->show ( );} {}
+  }
+  Function {command_hide_gui()} {open return_type void
+  } {
+    code {while ( Fl::first_window ( ) )
+{
+    Fl::first_window ( )->hide ( );
+}} {}
   }
 } 
 

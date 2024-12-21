@@ -24,6 +24,8 @@
 
 #include "non.H"
 
+#include <FL/Fl.H>
+
 #include <errno.h>
 
 /* #include <string> */
@@ -419,9 +421,7 @@ sequence::save ( const char *name ) const
 }
 
 
-/*************/
-/* Accessors */
-/*************/
+
 
 char *
 sequence::name ( void ) const
@@ -454,3 +454,4 @@ sequence::notes ( const char *s )
 
     song.set_dirty();
 }
+

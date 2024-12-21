@@ -78,6 +78,8 @@
     "event.C": "cpp",
     "midievent.C": "cpp",
     "Loggable.C": "cpp",
-    "string": "cpp"
+    "string": "cpp",
+    "NSM.C": "cpp",
+    "transport.C": "cpp"
   }
 }

@@ -19,7 +19,8 @@
             ],
             "defines": [
                 "VERSION",
-                "SYSTEM_PATH=/usr/local/share/non-sequencer"
+                "SYSTEM_PATH=/usr/local/share/non-sequencer",
+                "PIXMAP_PATH"
             ]
         }
     ],

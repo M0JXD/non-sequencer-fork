@@ -44,7 +44,7 @@ extern UI *ui;
 
 NSM_Client::NSM_Client ( )
 {
-    project_filename = 0;
+    //project_filename = 0;
 }
 
 int command_open ( const char *name, const char *display_name, const char *client_id, char **out_msg );
@@ -116,6 +116,9 @@ NSM_Client::command_open ( const char *name, const char *display_name, const cha
     nsm->project_filename = new_filename;
 
     return ERR_OK;
+
+    // For raysession
+    transport.say_hello();
 }
 
 void
@@ -131,4 +134,16 @@ NSM_Client::command_active ( bool b )
         ui->sm_indicator->tooltip( NULL );
         ui->sm_indicator->value( 0 );
     }
+}
+
+void
+NSM_Client::command_hide_gui( void )
+{
+    ui->command_hide_gui ( );
+}
+
+void
+NSM_Client::command_show_gui( void )
+{
+    ui->command_show_gui ( );
 }
