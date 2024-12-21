@@ -37,7 +37,7 @@ using namespace MIDI;
 // extern const char *BUILD_ID;
 // extern const char *VERSION;
 
-/* needed for extern to be compatible with non-mixer-xt*/
+/* needed for extern to be compatible with non-xt*/
 std::string project_directory = "";
 
 const double NSM_CHECK_INTERVAL = 0.25f;
