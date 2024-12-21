@@ -81,11 +81,6 @@
 },
 {
   "directory": "/home/jamiedrinkell/development/non-sequencer-fork",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-msse2", "-Inonlib", "-IFL", "-DVERSION=\"2\"", "-DSYSTEM_PATH=\"/usr/local/share/non-sequencer\"", "-DDOCUMENT_PATH=\"/usr/local/share/doc\"", "-DPIXMAP_PATH=\"/usr/local/share/pixmaps\"", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/src/NSM/Client.C.o", "src/NSM/Client.C"],
-  "file": "src/NSM/Client.C"
-},
-{
-  "directory": "/home/jamiedrinkell/development/non-sequencer-fork",
   "arguments": ["/usr/bin/gcc", "-c", "-m64", "-msse2", "-Inonlib", "-IFL", "-DVERSION=\"2\"", "-DSYSTEM_PATH=\"/usr/local/share/non-sequencer\"", "-DDOCUMENT_PATH=\"/usr/local/share/doc\"", "-DPIXMAP_PATH=\"/usr/local/share/pixmaps\"", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/nonlib/string_util.C.o", "nonlib/string_util.C"],
   "file": "nonlib/string_util.C"
 },
@@ -148,6 +143,11 @@
   "directory": "/home/jamiedrinkell/development/non-sequencer-fork",
   "arguments": ["/usr/bin/gcc", "-c", "-m64", "-msse2", "-Inonlib", "-IFL", "-DVERSION=\"2\"", "-DSYSTEM_PATH=\"/usr/local/share/non-sequencer\"", "-DDOCUMENT_PATH=\"/usr/local/share/doc\"", "-DPIXMAP_PATH=\"/usr/local/share/pixmaps\"", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/nonlib/JACK/Client.C.o", "nonlib/JACK/Client.C"],
   "file": "nonlib/JACK/Client.C"
+},
+{
+  "directory": "/home/jamiedrinkell/development/non-sequencer-fork",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-msse2", "-Inonlib", "-IFL", "-DVERSION=\"2\"", "-DSYSTEM_PATH=\"/usr/local/share/non-sequencer\"", "-DDOCUMENT_PATH=\"/usr/local/share/doc\"", "-DPIXMAP_PATH=\"/usr/local/share/pixmaps\"", "-isystem", "/usr/local/include/ntk", "-isystem", "/usr/include/sigc++-2.0", "-isystem", "/usr/lib/x86_64-linux-gnu/sigc++-2.0/include", "-o", "build/.objs/non-sequencer/linux/x86_64/release/nonlib/NSM/Client.C.o", "nonlib/NSM/Client.C"],
+  "file": "nonlib/NSM/Client.C"
 },
 {
   "directory": "/home/jamiedrinkell/development/non-sequencer-fork",

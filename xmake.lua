@@ -1,8 +1,7 @@
 target("non-sequencer")
     set_kind("binary")
-    add_files("src/*.C", "src/gui/*.C", "src/NSM/*.C")
-    add_files("nonlib/*.C", "nonlib/MIDI/*.C", "nonlib/OSC/*.C", "nonlib/JACK/*.C")
-    -- add_files("nonlib/NSM/*.C")  -- NSM support is already in src
+    add_files("src/*.C", "src/gui/*.C")
+    add_files("nonlib/*.C", "nonlib/MIDI/*.C", "nonlib/OSC/*.C", "nonlib/JACK/*.C", "nonlib/NSM/*.C")
     add_files("FL/*.C")
     --add_files("FL/util/*.C")
 
