@@ -20,6 +20,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <string>
 
 #include "non.H"
 // #include "gui/input.H"
@@ -35,6 +36,9 @@ using namespace MIDI;
 
 // extern const char *BUILD_ID;
 // extern const char *VERSION;
+
+/* needed for extern to be compatible with non-mixer-xt*/
+std::string project_directory = "";
 
 const double NSM_CHECK_INTERVAL = 0.25f;
 
