@@ -1,7 +1,7 @@
 # Non Sequencer Fork
 
 This is a fork of Non-Sequencer, with some small maintenance fixes. 
-This is not a serious project and should be considered "life support" as oppose to a serious forking attempt, although PRs (or making your own fork based on this) are welcome. It seems buggier than the original :(
+This is not a serious project and should be considered "life support" as oppose to a serious forking attempt, although PRs (or making your own fork based on this) are welcome.
 
 The differences are:
 
@@ -10,8 +10,8 @@ The differences are:
 + Change instrument directory path.
 
 ### Would be nice to add:
-+ Fix the bugs I've introduced (somehow 4/4 is ten beats to a bar now?) - I think some of the struct labels I added should have been struct pointers.
 + Some built-in humanisation options.
++ NSM Hide/Show GUI
 + Pure FLTK build, à la Stazed.
 + Link against Stazed's FL and nonlib.
 + An end user instrument directory, perhaps ~/.local/share/non-sequencer/instruments
