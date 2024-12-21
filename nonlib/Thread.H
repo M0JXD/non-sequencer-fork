@@ -1,6 +1,8 @@
 
 /*******************************************************************************/
-/* Copyright (C) 2008 Jonathan Moore Liles                                     */
+/* Copyright (C) 2008-2021 Jonathan Moore Liles                                */
+/* Copyright (C) 2021- Stazed                                                  */
+/*                                                                             */
 /*                                                                             */
 /* This program is free software; you can redistribute it and/or modify it     */
 /* under the terms of the GNU General Public License as published by the       */
@@ -43,7 +45,7 @@ public:
     static Thread *current ( void );
 
     Thread ( );
-    Thread ( const char *name );
+    explicit Thread ( const char *name );
 
     const char *name ( void ) const { return _name; }
     void name ( const char *name ) { _name = name; }

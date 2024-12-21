@@ -1,6 +1,8 @@
 
 /*******************************************************************************/
-/* Copyright (C) 2008 Jonathan Moore Liles                                     */
+/* Copyright (C) 2008-2021 Jonathan Moore Liles                                */
+/* Copyright (C) 2021- Stazed                                                  */
+/*                                                                             */
 /*                                                                             */
 /* This program is free software; you can redistribute it and/or modify it     */
 /* under the terms of the GNU General Public License as published by the       */
@@ -24,10 +26,14 @@
 #ifdef HAVE_JACK_METADATA
 #	include <jack/metadata.h>
 #endif
-#include <Mutex.H>
+
+#include "../nonlib/Mutex.H"
 
 typedef jack_nframes_t nframes_t;
 typedef jack_default_audio_sample_t sample_t;
+
+/* Needed by mixer to immediately stop jack processing on potentially deleted chain on quit */
+extern bool stop_process;
 
 #include <list>
 
@@ -49,9 +55,9 @@ namespace JACK
         volatile bool _active;
 
         static int sample_rate_changed ( nframes_t srate, void *arg );
-        virtual int sample_rate_changed ( nframes_t srate ) { return 0; }
+        virtual int sample_rate_changed ( nframes_t /*srate*/ ) { return 0; }
         static void port_connect ( jack_port_id_t a, jack_port_id_t b, int connect, void *arg );
-        virtual void port_connect ( jack_port_id_t a, jack_port_id_t b, int connect ) { }
+        virtual void port_connect ( jack_port_id_t, jack_port_id_t, int /*connect*/ ) { }
         static void shutdown ( void *arg );
         virtual void shutdown ( void ) = 0;
         static int process ( nframes_t nframes, void *arg );
@@ -70,7 +76,7 @@ namespace JACK
         virtual void thread_init ( void ) = 0;
 
         static void latency ( jack_latency_callback_mode_t mode, void *arg );
-        virtual void latency ( jack_latency_callback_mode_t mode ) { }
+        virtual void latency ( jack_latency_callback_mode_t /*mode*/ ) { }
         
         Client ( const Client &rhs );
         Client & operator = ( const Client &rhs );
@@ -113,6 +119,7 @@ namespace JACK
 //        float frame_rate ( void ) const { return jack_get_sample_rate( _client ); }
         nframes_t sample_rate ( void ) const { return jack_get_sample_rate( _client ); }
         int xruns ( void ) const { return _xruns; };
+        void clear_xruns( void ) { _xruns = 0; };
         bool freewheeling ( void ) const { return _freewheeling; }
         void freewheeling ( bool yes );
         bool zombified ( void ) const { return _zombified; }

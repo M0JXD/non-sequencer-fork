@@ -1,6 +1,8 @@
 
 /*******************************************************************************/
-/* Copyright (C) 2008 Jonathan Moore Liles                                     */
+/* Copyright (C) 2008-2021 Jonathan Moore Liles                                */
+/* Copyright (C) 2021- Stazed                                                  */
+/*                                                                             */
 /*                                                                             */
 /* This program is free software; you can redistribute it and/or modify it     */
 /* under the terms of the GNU General Public License as published by the       */
@@ -42,6 +44,9 @@ namespace JACK
     public:
 
         bool operator < ( const Port & rhs ) const;
+
+        /* not permitted */
+        Port & operator = ( const Port & rhs );
 
         enum direction_e { Output, Input };
         enum type_e { Audio, MIDI, CV };

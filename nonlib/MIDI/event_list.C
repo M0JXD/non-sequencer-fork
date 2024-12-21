@@ -1,6 +1,8 @@
 
 /*******************************************************************************/
-/* Copyright (C) 2008 Jonathan Moore Liles                                     */
+/* Copyright (C) 2008-2021 Jonathan Moore Liles                                */
+/* Copyright (C) 2021- Stazed                                                  */
+/*                                                                             */
 /*                                                                             */
 /* This program is free software; you can redistribute it and/or modify it     */
 /* under the terms of the GNU General Public License as published by the       */
@@ -17,7 +19,8 @@
 /* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 /*******************************************************************************/
 
-#include "debug.h"
+#include "../nonlib/debug.h"
+
 #include "event_list.H"
 
 /* The operations we perform on event lists are clumsy with STL lists

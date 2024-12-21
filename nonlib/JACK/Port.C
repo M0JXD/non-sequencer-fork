@@ -1,6 +1,8 @@
 
 /*******************************************************************************/
-/* Copyright (C) 2008 Jonathan Moore Liles                                     */
+/* Copyright (C) 2008-2021 Jonathan Moore Liles                                */
+/* Copyright (C) 2021- Stazed                                                  */
+/*                                                                             */
 /*                                                                             */
 /* This program is free software; you can redistribute it and/or modify it     */
 /* under the terms of the GNU General Public License as published by the       */
@@ -26,7 +28,8 @@
 #include <errno.h>
 
 #include <assert.h>
-#include "debug.h"
+
+#include "../nonlib/debug.h"
 
 namespace JACK
 {
@@ -57,18 +60,20 @@ namespace JACK
     }
 
 /* nframes is the number of frames to buffer */
-    Port::Port ( JACK::Client *client, jack_port_t *port )
+    Port::Port ( JACK::Client *client, jack_port_t *port ) :
+        _port(port),
+        _trackname(NULL),
+        _name(NULL),
+        _client(client),
+        _direction(Output),
+        _type(Audio),
+        _terminal(0),
+        _connections(NULL)
     {
-        _terminal = 0;
-        _connections = NULL;
-        _client = client;
-        _port = port;
         _name = strdup( jack_port_name( port ) );
-        _trackname = NULL;
         _direction = ( jack_port_flags( _port ) & JackPortIsOutput ) ? Output : Input;
         const char *type = jack_port_type( _port );
 
-        _type = Audio;
         if ( strstr( type, "MIDI") )
             _type = MIDI;
         else if ( strstr( type, "CV)") )
@@ -78,18 +83,16 @@ namespace JACK
 
     }
 
-    Port::Port ( JACK::Client *client, const char *trackname, const char *name, direction_e dir, type_e type )
+    Port::Port ( JACK::Client *client, const char *trackname, const char *name, direction_e dir, type_e type ) :
+        _port(0),
+        _trackname(NULL),
+        _name(NULL),
+        _client(client),
+        _direction(dir),
+        _type(type),
+        _terminal(0),
+        _connections(NULL)
     {
-        _port = 0;
-        _terminal = 0;
-        _name = NULL;
-        _trackname = NULL;
-        _connections = NULL;
-        _client = client;
-        _direction = dir;
-        _type = type;
-        _trackname = NULL;
-
         if ( trackname )
             _trackname = strdup( trackname );
 
@@ -199,8 +202,8 @@ namespace JACK
 #ifdef HAVE_JACK_METADATA
         if ( _type == CV )
         {
-                jack_uuid_t uuid = jack_port_uuid( _port );
-                jack_set_property( _client->jack_client(), uuid, "http://jackaudio.org/metadata/signal-type", "CV", "text/plain" );
+            jack_uuid_t uuid = jack_port_uuid( _port );
+            jack_set_property( _client->jack_client(), uuid, "http://jackaudio.org/metadata/signal-type", "CV", "text/plain" );
         }
 #endif
 
@@ -276,16 +279,17 @@ namespace JACK
     Port::deactivate ( void )
     {
         if ( _port )
-				{
+        {
 #ifdef HAVE_JACK_METADATA
             if ( _type == CV )
-						{
-                     jack_uuid_t uuid = jack_port_uuid(_port);
-										 jack_remove_property(_client->jack_client(), uuid, "http://jackaudio.org/metadata/signal-type");
-						}
+            {
+                jack_uuid_t uuid = jack_port_uuid(_port);
+                jack_remove_property(_client->jack_client(), uuid, "http://jackaudio.org/metadata/signal-type");
+            }
 #endif
-            jack_port_unregister( _client->jack_client(), _port );
-				}
+            if(_client->jack_client())
+                jack_port_unregister( _client->jack_client(), _port );
+        }
 
         _port = 0;
     }
@@ -320,7 +324,7 @@ namespace JACK
         snprintf( jackname, sizeof(jackname), "%s%s%s", _trackname ? _trackname : "", _trackname ? "/" : "", _name );
 
         if ( _port )
-            return 0 == jack_port_set_name( _port, jackname );
+            return 0 == jack_port_rename(_client->jack_client(), _port, jackname );
         else
             return false;
     }
@@ -354,6 +358,9 @@ namespace JACK
     const char **
     Port::connections ( void )
     {
+        if(stop_process)
+            return NULL;
+
         ASSERT( _port, "Attempt to get connections of null port" );
 
         return jack_port_get_connections( _port );

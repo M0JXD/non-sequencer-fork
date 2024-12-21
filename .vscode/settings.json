@@ -73,6 +73,9 @@
     "smf.C": "cpp",
     "event_list.C": "cpp",
     "About_Dialog.C": "cpp",
-    "event_edit.C": "cpp"
+    "event_edit.C": "cpp",
+    "Port.C": "cpp",
+    "event.C": "cpp",
+    "midievent.C": "cpp"
   }
 }

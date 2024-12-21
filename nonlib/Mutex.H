@@ -1,6 +1,8 @@
 
 /*******************************************************************************/
-/* Copyright (C) 2008 Jonathan Moore Liles                                     */
+/* Copyright (C) 2008-2021 Jonathan Moore Liles                                */
+/* Copyright (C) 2021- Stazed                                                  */
+/*                                                                             */
 /*                                                                             */
 /* This program is free software; you can redistribute it and/or modify it     */
 /* under the terms of the GNU General Public License as published by the       */
@@ -30,11 +32,8 @@ class Mutex
 
 public:
 
-    Mutex ( )
-        {
-//            pthread_mutex_init( &_lock, NULL );
-            _lock = _mutex_initializer;
-        }
+    Mutex ( ) : _lock(_mutex_initializer)
+        { }
 
     virtual ~Mutex ( )
         {
@@ -69,7 +68,7 @@ class Locker
 
 public:
 
-    Locker ( Mutex & lock ) : _lock( lock )
+    explicit Locker ( Mutex & lock ) : _lock( lock )
         {
             _lock.lock();
         }

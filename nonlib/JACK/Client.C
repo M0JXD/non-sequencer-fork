@@ -1,6 +1,8 @@
 
 /*******************************************************************************/
-/* Copyright (C) 2008 Jonathan Moore Liles                                     */
+/* Copyright (C) 2008-2021 Jonathan Moore Liles                                */
+/* Copyright (C) 2021- Stazed                                                  */
+/*                                                                             */
 /*                                                                             */
 /* This program is free software; you can redistribute it and/or modify it     */
 /* under the terms of the GNU General Public License as published by the       */
@@ -24,11 +26,13 @@
 
 
 
-#include "debug.h"
+#include "../nonlib/debug.h"
 
 #ifdef __SSE2_MATH__
 #include <xmmintrin.h>
 #endif
+
+bool stop_process = false;  // extern
 
 namespace JACK
 {
@@ -68,6 +72,9 @@ namespace JACK
     int
     Client::process ( nframes_t nframes, void *arg )
     {
+        if ( stop_process )
+            return 0;
+
         Client *c = (Client*)arg;
      
         if ( ! c->_frozen.trylock() )
@@ -126,6 +133,9 @@ namespace JACK
     void
     Client::latency ( jack_latency_callback_mode_t mode, void *arg )
     {
+        if ( stop_process )
+            return;
+
         ((Client*)arg)->latency( mode );
     }
 
@@ -209,8 +219,10 @@ namespace JACK
     Client::freewheeling ( bool yes )
     {
         if ( jack_set_freewheel( _client, yes ) )
+        {
             ;
 //            WARNING( "Unkown error while setting freewheeling mode" );
+        }
     }
     
     const char *
@@ -299,9 +311,9 @@ namespace JACK
 
         s = init( s );
 
-        thaw_ports();
-        
         _frozen.unlock();
+
+        thaw_ports();
 
         return s;
     }

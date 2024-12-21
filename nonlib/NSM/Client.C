@@ -1,6 +1,8 @@
 
 /*******************************************************************************/
-/* Copyright (C) 2012 Jonathan Moore Liles                                     */
+/* Copyright (C) 2008-2021 Jonathan Moore Liles                                */
+/* Copyright (C) 2021- Stazed                                                  */
+/*                                                                             */
 /*                                                                             */
 /* This program is free software; you can redistribute it and/or modify it     */
 /* under the terms of the GNU General Public License as published by the       */
@@ -40,15 +42,15 @@ namespace NSM
 
 #define OSC_REPLY_ERR( errcode, value ) lo_send_from( ((NSM::Client*)user_data)->nsm_addr, ((NSM::Client*)user_data)->_server, LO_TT_IMMEDIATE, "/error", "sis", path, errcode, value )
 
-    Client::Client ( )
-    {
-        nsm_addr = 0;
-        nsm_client_id = 0;
-        _session_manager_name = 0;
-        nsm_is_active = false;
-        _server = 0;
-        _st = 0;
-    }
+    Client::Client ( ) :
+        nsm_url(NULL),
+        _server(0),
+        _st(0),
+        nsm_addr(0),
+        nsm_is_active(false),
+        nsm_client_id(0),
+        _session_manager_name(0)
+    { }
 
     Client::~Client ( )
     {
@@ -171,6 +173,8 @@ namespace NSM
         lo_server_add_method( _server, "/nsm/client/open", "sss", &Client::osc_open, this );
         lo_server_add_method( _server, "/nsm/client/save", "", &Client::osc_save, this );
         lo_server_add_method( _server, "/nsm/client/session_is_loaded", "", &Client::osc_session_is_loaded, this );
+        lo_server_add_method( _server, "/nsm/client/hide_optional_gui", "", &Client::osc_hide_gui, this );
+        lo_server_add_method( _server, "/nsm/client/show_optional_gui", "", &Client::osc_show_gui, this );
         lo_server_add_method( _server, NULL, NULL, &Client::osc_broadcast, this );
 
         return 0;
@@ -196,6 +200,8 @@ namespace NSM
         lo_server_thread_add_method( _st, "/nsm/client/open", "sss", &Client::osc_open, this );
         lo_server_thread_add_method( _st, "/nsm/client/save", "", &Client::osc_save, this );
         lo_server_thread_add_method( _st, "/nsm/client/session_is_loaded", "", &Client::osc_session_is_loaded, this );
+        lo_server_thread_add_method( _st, "/nsm/client/hide_optional_gui", "", &Client::osc_hide_gui, this );
+        lo_server_thread_add_method( _st, "/nsm/client/show_optional_gui", "", &Client::osc_show_gui, this );
         lo_server_thread_add_method( _st, NULL, NULL, &Client::osc_broadcast, this );
         
         return 0;
@@ -257,7 +263,7 @@ namespace NSM
         NSM::Client *nsm = (NSM::Client*)user_data;
 
         nsm->command_session_is_loaded();
-
+        
         return 0;
     }
 
@@ -294,5 +300,51 @@ namespace NSM
         nsm->command_active( nsm->nsm_is_active );
 
         return 0;
+    }
+
+    int
+    Client::osc_hide_gui ( const char *path, const char *types, lo_arg **argv, int argc, lo_message msg, void *user_data )
+    {
+        NSM::Client *nsm = (NSM::Client*)user_data;
+        nsm->command_hide_gui();
+        lo_address address = lo_address_new_from_url(lo_address_get_url(lo_message_get_source(msg)));
+        lo_send_from(address, nsm->_server, LO_TT_IMMEDIATE, "/nsm/client/gui_is_hidden", "");
+        lo_address_free(address);
+        return 0;
+    }
+
+    int
+    Client::osc_show_gui ( const char *path, const char *types, lo_arg **argv, int argc, lo_message msg, void *user_data )
+    {
+        NSM::Client *nsm = (NSM::Client*)user_data;
+        nsm->command_show_gui();
+        lo_address address = lo_address_new_from_url(lo_address_get_url(lo_message_get_source(msg)));
+        lo_send_from(address, nsm->_server, LO_TT_IMMEDIATE, "/nsm/client/gui_is_shown", "");
+        lo_address_free(address);
+        return 0;
+    }
+    
+    void
+    Client::nsm_send_is_hidden ( void *user_data )
+    {
+        NSM::Client *nsm = (NSM::Client*)user_data;
+        if ( nsm->is_active() )
+        {
+            lo_address address = lo_address_new_from_url(nsm_url);
+            lo_send_from(address, nsm->_server, LO_TT_IMMEDIATE, "/nsm/client/gui_is_hidden", "");
+            lo_address_free(address);
+        }
+    }
+    
+    void
+    Client::nsm_send_is_shown ( void *user_data )
+    {
+        NSM::Client *nsm = (NSM::Client*)user_data;
+        if ( nsm->is_active() )
+        {
+            lo_address address = lo_address_new_from_url(nsm_url);
+            lo_send_from(address, nsm->_server, LO_TT_IMMEDIATE, "/nsm/client/gui_is_shown", "");
+            lo_address_free(address);
+        }
     }
 };

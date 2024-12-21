@@ -1,6 +1,8 @@
 
 /*******************************************************************************/
-/* Copyright (C) 2008 Jonathan Moore Liles                                     */
+/* Copyright (C) 2008-2021 Jonathan Moore Liles                                */
+/* Copyright (C) 2021- Stazed                                                  */
+/*                                                                             */
 /*                                                                             */
 /* This program is free software; you can redistribute it and/or modify it     */
 /* under the terms of the GNU General Public License as published by the       */
@@ -33,6 +35,14 @@
 
 // #include "types.h"
 
+/* On occasion, rapid CTRL-V paste would apply second paste before first was completed.
+   Giving a - FATAL "Attempt to create object with an ID (0x%X) that already exists"  error.
+   This _is_pasting flag is set when paste first occurs, and is unset when completed.
+   Any attempt by the user to paste when true is ignored - only applies to Mixer */
+extern bool _is_pasting;
+
+extern std::string project_directory;
+
 typedef void (progress_func)( int, void * );
 typedef void (snapshot_func)( void * );
 typedef void (dirty_func)( int, void * );
@@ -45,7 +55,7 @@ typedef Loggable *(create_func)(Log_Entry &, unsigned int id);
     Loggable::register_create( #class, & class ::create  )
 
 #define LOG_NAME_FUNC( class ) \
-    virtual const char *class_name ( void ) const { return #class ; }
+    virtual const char *class_name ( void ) const override { return #class ; }
 
 #define LOG_CREATE_FUNC( class )                \
     static Loggable *                           \
@@ -54,7 +64,7 @@ typedef Loggable *(create_func)(Log_Entry &, unsigned int id);
         class *r = new class;                   \
         r->update_id( id );                     \
         r->set( e );                            \
-        return (Loggable *)r;                   \
+        return static_cast<Loggable *>( r );    \
     }                                           \
     LOG_NAME_FUNC( class )
 
@@ -150,17 +160,17 @@ private:
     void record_unjournaled ( void ) const;
     static bool load_unjournaled_state ( void );
 
-    static bool replay ( FILE *fp );
+    static bool replay ( FILE *fp, bool need_clear = true );
 
     static void signal_dirty ( int v ) { if ( _dirty_callback ) _dirty_callback( v, _dirty_callback_arg ); }
-    static void set_dirty ( void ) {  signal_dirty( ++_dirty ); }
-    static void clear_dirty ( void ) {  signal_dirty( _dirty = 0 ); }
+    static void clear_dirty ( void ) { _dirty = 0; signal_dirty( 0 ); }
 
 public:
     
+    static void set_dirty ( void ) {  signal_dirty( ++_dirty ); }
     static bool readonly ( void ) { return _readonly; }
 
-    static bool replay ( const char *name );
+    static bool replay ( const char *name, bool need_clear = true );
 
     static bool snapshot( FILE * fp );
     static bool snapshot( const char *name );
@@ -254,7 +264,7 @@ class Logger
 
 public:
 
-    Logger ( Loggable *l ) : _this( l )
+    explicit Logger ( Loggable *l ) : _this( l )
         {
             _this->log_start();
 

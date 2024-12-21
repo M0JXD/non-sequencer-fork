@@ -1,6 +1,8 @@
 
 /*******************************************************************************/
-/* Copyright (C) 2008 Jonathan Moore Liles                                     */
+/* Copyright (C) 2008-2021 Jonathan Moore Liles                                */
+/* Copyright (C) 2021- Stazed                                                  */
+/*                                                                             */
 /*                                                                             */
 /* This program is free software; you can redistribute it and/or modify it     */
 /* under the terms of the GNU General Public License as published by the       */
@@ -21,7 +23,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "debug.h"
+
+#include "../nonlib/debug.h"
+
 
 namespace MIDI
 {
@@ -87,19 +91,19 @@ namespace MIDI
         memcpy( p, &_data, l );
     }
 
-    int
+    byte_t
     midievent::size ( void ) const
     {
         return midievent::event_size( opcode() );
     }
 
     void
-    midievent::note_velocity ( int vel )
+    midievent::note_velocity ( byte_t vel )
     {
         _data.msb = vel & 0x7F;
     }
 
-    unsigned char
+    byte_t
     midievent::note ( void ) const
     {
         return _data.lsb;
@@ -111,7 +115,7 @@ namespace MIDI
         _data.lsb = note & 0x7F;
     }
 
-    unsigned char
+    byte_t
     midievent::note_velocity ( void ) const
     {
         return _data.msb;

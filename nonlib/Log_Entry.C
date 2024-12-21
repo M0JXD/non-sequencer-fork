@@ -1,6 +1,8 @@
 
 /*******************************************************************************/
-/* Copyright (C) 2008 Jonathan Moore Liles                                     */
+/* Copyright (C) 2008-2021 Jonathan Moore Liles                                */
+/* Copyright (C) 2021- Stazed                                                  */
+/*                                                                             */
 /*                                                                             */
 /* This program is free software; you can redistribute it and/or modify it     */
 /* under the terms of the GNU General Public License as published by the       */
@@ -94,7 +96,6 @@ unescape ( char *s )
 char *
 Log_Entry::print ( void ) const
 {
-    /* FIXME: gross over-allocation */
     char *r = (char*)malloc( 1024 );
 
     r[0] = 0;
@@ -105,20 +106,17 @@ Log_Entry::print ( void ) const
 
         get( i, &s, &v );
 
-        /* FIXME: arbitrary limit */
-        char t[1024];
-        snprintf( t, sizeof( t ), "%s %s%s", s, v, size() == i + 1 ? "" : " " );
+        char *t;
+        asprintf( &t, "%s %s%s", s, v, size() == i + 1 ? "" : " " );
+
+	r = (char*)realloc( r, strlen(r) + strlen(t) + 1 );
 
         strcat( r, t );
+
+	free(t);
     }
 
-    char *r2 = (char*)malloc( strlen( r ) + 1 );
-
-    strcpy( r2, r );
-
-    free( r );
-
-    return r2;
+    return r;
 }
 
 /** sigh. parse a string of ":name value :name value" pairs into an

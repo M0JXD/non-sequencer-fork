@@ -1,6 +1,8 @@
 
 /*******************************************************************************/
-/* Copyright (C) 2008 Jonathan Moore Liles                                     */
+/* Copyright (C) 2008-2021 Jonathan Moore Liles                                */
+/* Copyright (C) 2021- Stazed                                                  */
+/*                                                                             */
 /*                                                                             */
 /* This program is free software; you can redistribute it and/or modify it     */
 /* under the terms of the GNU General Public License as published by the       */
@@ -39,8 +41,8 @@ class Log_Entry
 public:
 
     Log_Entry ( );
-    Log_Entry ( char **sa );
-    Log_Entry ( const char *s );
+    explicit Log_Entry ( char **sa );
+    explicit Log_Entry ( const char *s );
     ~Log_Entry ( );
 
 /****************/

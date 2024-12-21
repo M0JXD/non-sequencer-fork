@@ -1,6 +1,8 @@
 
 /*******************************************************************************/
-/* Copyright (C) 2012 Jonathan Moore Liles                                     */
+/* Copyright (C) 2008-2021 Jonathan Moore Liles                                */
+/* Copyright (C) 2021- Stazed                                                  */
+/*                                                                             */
 /*                                                                             */
 /* This program is free software; you can redistribute it and/or modify it     */
 /* under the terms of the GNU General Public License as published by the       */
@@ -32,7 +34,7 @@ void unescape_url ( char *url )
         {
             char data[3] = { *(r + 1), *(r + 2), 0 };
 
-            int c;
+            unsigned int c;
 
             sscanf( data, "%2X", &c );
 

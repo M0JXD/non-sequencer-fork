@@ -1,6 +1,8 @@
 
 /*******************************************************************************/
-/* Copyright (C) 2010 Jonathan Moore Liles                                     */
+/* Copyright (C) 2008-2021 Jonathan Moore Liles                                */
+/* Copyright (C) 2021- Stazed                                                  */
+/*                                                                             */
 /*                                                                             */
 /* This program is free software; you can redistribute it and/or modify it     */
 /* under the terms of the GNU General Public License as published by the       */
@@ -37,7 +39,7 @@ class Block_Timer
 
 public:
 
-    Block_Timer ( const char *prefix )
+    explicit Block_Timer ( const char *prefix )
         {
             this->prefix = prefix;
 

@@ -1,6 +1,8 @@
 
 /*******************************************************************************/
-/* Copyright (C) 2008 Jonathan Moore Liles                                     */
+/* Copyright (C) 2008-2021 Jonathan Moore Liles                                */
+/* Copyright (C) 2021- Stazed                                                  */
+/*                                                                             */
 /*                                                                             */
 /* This program is free software; you can redistribute it and/or modify it     */
 /* under the terms of the GNU General Public License as published by the       */
@@ -34,7 +36,7 @@ static const int ALIGNMENT = 16;
 sample_t *
 buffer_alloc ( nframes_t size )
 {
-    void *p;
+    void *p = NULL;
     
     posix_memalign( &p, ALIGNMENT, size * sizeof( sample_t ) );
 
@@ -48,9 +50,9 @@ buffer_apply_gain ( sample_t * __restrict__ buf, nframes_t nframes, float g )
 	
     if ( g == 1.0f )
         return;
-    
-    for ( nframes_t i = 0; i < nframes; i++ )
-        buf_[i] *= g;
+
+    while ( nframes-- )
+	*buf_++ *= g;
 }
 
 void
@@ -58,9 +60,9 @@ buffer_apply_gain_unaligned ( sample_t * __restrict__ buf, nframes_t nframes, fl
 {
     if ( g == 1.0f )
         return;
-    
-    for ( nframes_t i = 0; i < nframes; i++ )
-        buf[i] *= g;
+
+    while ( nframes-- )
+	*buf++ *= g;
 }
 
 void
@@ -69,8 +71,8 @@ buffer_apply_gain_buffer ( sample_t * __restrict__ buf, const sample_t * __restr
     sample_t * buf_ = (sample_t*) assume_aligned(buf);
     const sample_t * gainbuf_ = (const sample_t*) assume_aligned(gainbuf);
 
-    for ( nframes_t i = 0; i < nframes; i++ )
-        buf_[i] *= gainbuf_[i];
+    while ( nframes-- )
+	*buf_++ *= *gainbuf_++;
 }
 
 void
@@ -79,9 +81,9 @@ buffer_copy_and_apply_gain_buffer ( sample_t * __restrict__ dst, const sample_t 
     sample_t * dst_ = (sample_t*) assume_aligned(dst);
     const sample_t * src_ = (const sample_t*) assume_aligned(src);
     const sample_t * gainbuf_ = (const sample_t*) assume_aligned(gainbuf);
-    
-    for ( nframes_t i = 0; i < nframes; i++ )
-        dst_[i] = src_[i] * gainbuf_[i];
+
+    while ( nframes-- )
+	*dst_++ = *src_++ * *gainbuf_++;
 }
 
 void
@@ -90,8 +92,8 @@ buffer_mix ( sample_t * __restrict__ dst, const sample_t * __restrict__ src, nfr
     sample_t * dst_ = (sample_t*) assume_aligned(dst);
     const sample_t * src_ = (const sample_t*) assume_aligned(src);
 
-    for ( nframes_t i = 0; i < nframes; i++ )
-        dst_[i] += src_[i];
+    while ( nframes-- )
+	*dst_++ += *src_++;
 }
 
 void
@@ -100,8 +102,8 @@ buffer_mix_with_gain ( sample_t * __restrict__ dst, const sample_t * __restrict_
     sample_t * dst_ = (sample_t*) assume_aligned(dst);
     const sample_t * src_ = (const sample_t*) assume_aligned(src);
 
-    for ( nframes_t i = 0; i < nframes; i++ )
-        dst_[i] += src_[i] * g;
+    while ( nframes-- )
+	*dst_++ = *src_++ * g;
 }
 
 void
@@ -199,25 +201,24 @@ buffer_get_peak ( const sample_t * __restrict__ buf, nframes_t nframes )
 {
     const sample_t * buf_ = (const sample_t*) assume_aligned(buf);
 
-    float pmax = 0.0f;
-    float pmin = 0.0f;
-
-    for ( nframes_t i = 0; i < nframes; i++ )
+    float p = 0.0f;
+    
+    while (nframes--)
     {
-        pmax = buf_[i] > pmax ? buf_[i] : pmax;
-        pmin = buf_[i] < pmin ? buf_[i] : pmin;
+	const float v = fabsf( *buf_++ );
+
+	if ( v > p )
+	    p = v;
     }
 
-    pmax = fabsf(pmax);
-    pmin = fabsf(pmin);
-    
-    return pmax > pmin ? pmax : pmin;
+    return p;
 }
 
 void
 buffer_copy ( sample_t * __restrict__ dst, const sample_t * __restrict__ src, nframes_t nframes )
 {
-    memcpy( dst, src, nframes * sizeof( sample_t ) );
+    if ( dst != NULL && src != NULL )
+        memcpy( dst, src, nframes * sizeof( sample_t ) );
 }
 
 void
@@ -237,9 +238,13 @@ Value_Smoothing_Filter::sample_rate ( nframes_t n )
     w = _cutoff / (FS * T);
 }
 
+/* FIXME: need a method that just returns a single value, skipping the within-buffer interpolation */
 bool
 Value_Smoothing_Filter::apply( sample_t * __restrict__ dst, nframes_t nframes, float gt )
 {
+    if ( target_reached(gt) )
+        return false;
+
     sample_t * dst_ = (sample_t*) assume_aligned(dst);
     
     const float a = 0.07f;
@@ -250,15 +255,14 @@ Value_Smoothing_Filter::apply( sample_t * __restrict__ dst, nframes_t nframes, f
     float g1 = this->g1;
     float g2 = this->g2;
 
-    if ( target_reached(gt) )
-        return false;
-
     for (nframes_t i = 0; i < nframes; i++)
     {
         g1 += w * (gm - g1 - a * g2);
         g2 += w * (g1 - g2);
         dst_[i] = g2;
     }
+
+    g2 += 1e-10f;		/* denormal protection */
 
     if ( fabsf( gt - g2 ) < 0.0001f )
         g2 = gt;

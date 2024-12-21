@@ -1,6 +1,8 @@
 
 /*******************************************************************************/
-/* Copyright (C) 2008 Jonathan Moore Liles                                     */
+/* Copyright (C) 2008-2021 Jonathan Moore Liles                                */
+/* Copyright (C) 2021- Stazed                                                  */
+/*                                                                             */
 /*                                                                             */
 /* This program is free software; you can redistribute it and/or modify it     */
 /* under the terms of the GNU General Public License as published by the       */
@@ -51,11 +53,13 @@ public:
 
     Value_Smoothing_Filter ( )
     {
-        g1 = g2 = 0;
+        w = g1 = g2 = 0;
         _cutoff = 10.0f;
     }
 
     void cutoff ( float v ) { _cutoff = v; }
+
+    void reset ( float v ) { g2 = g1 = v; }
 
     void sample_rate ( nframes_t v );
     
