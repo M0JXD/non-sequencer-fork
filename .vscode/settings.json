@@ -76,6 +76,8 @@
     "event_edit.C": "cpp",
     "Port.C": "cpp",
     "event.C": "cpp",
-    "midievent.C": "cpp"
+    "midievent.C": "cpp",
+    "Loggable.C": "cpp",
+    "string": "cpp"
   }
 }
