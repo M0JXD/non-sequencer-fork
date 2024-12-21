@@ -15,9 +15,14 @@ target("non-sequencer")
     add_defines("PIXMAP_PATH=\"/usr/local/share/pixmaps\"")
 
     add_includedirs("nonlib", "FL")
+
+    -- without this it trys to build against FLTK, despite sys_link below.
     add_sysincludedirs("/usr/local/include/ntk")
+    -- sigc++ is odd, I really struggled forcing the build system (and intellisense) to find it.
+    -- I think the original author wanted to remove this dependency anyways
     add_sysincludedirs("/usr/include/sigc++-2.0")
     add_sysincludedirs("/usr/lib/x86_64-linux-gnu/sigc++-2.0/include")
+
     add_syslinks("pthread", "jack", "sigc-2.0", "lo", "X11", "ntk", "ntk_images", "cairo")
 
     -- Clear the generated fl files.
