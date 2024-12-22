@@ -58,22 +58,30 @@ UI *ui;
 void
 quit ( void )
 {
-    /* clean up, only for valgrind's sake */
-    ui->save_settings();
+    // TODO: Save the window size?
+    //if(!project_directory.empty())
+    // save_window_sizes();
+    if ( nsm->is_active ( ) )
+    {
+        nsm->nsm_send_is_hidden ( nsm );
+        while ( Fl::first_window ( ) ) Fl::first_window ( )->hide ( );
+    }
+    else // we really are quitting, not just hiding
+    {
+        /* clean up, only for valgrind's sake */
+        ui->save_settings();
+        delete ui;
+        midi_all_sound_off();
 
-    delete ui;
+        // wait for it...
+        sleep( 1 );
 
-    midi_all_sound_off();
+        midi_shutdown();
 
-    // wait for it...
-    sleep( 1 );
+        MESSAGE( "Your fun is over" );
 
-    midi_shutdown();
-
-
-    MESSAGE( "Your fun is over" );
-
-    exit( 0 );
+        exit( 0 );
+    }
 }
 
 void
@@ -252,9 +260,7 @@ main ( int argc, char **argv )
     // // "The main thread must call lock() to initialize the threading support in FLTK."
     // Fl::lock ( );
 
-    //const char *nsm_url = getenv( "NSM_URL" );
-    // Hardcoded for debugging
-    const char *nsm_url = "osc.udp://jamiedrinkell-Nitro-AN515-57:16187/";
+    const char *nsm_url = getenv( "NSM_URL" );
 
 #ifdef HAVE_XPM
     ui->main_window->icon((char *)p);
