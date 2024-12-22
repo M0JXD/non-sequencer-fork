@@ -18,6 +18,8 @@
 /*******************************************************************************/
 
 #include "NSM.H"
+#include "nsm.h"
+#include "../../nonlib/OSC/Endpoint.H"
 
 
 #include <stdio.h>
@@ -37,6 +39,7 @@
 
 extern Transport transport;
 extern char *instance_name;
+extern void set_nsm_callbacks ( nsm_client_t *nsm );
 
 extern NSM_Client *nsm;
 
@@ -44,7 +47,7 @@ extern UI *ui;
 
 NSM_Client::NSM_Client ( )
 {
-    //project_filename = 0;
+    project_filename = 0;
 }
 
 int command_open ( const char *name, const char *display_name, const char *client_id, char **out_msg );
@@ -61,6 +64,13 @@ NSM_Client::command_save ( char **out_msg )
 int 
 NSM_Client::command_open ( const char *name, const char *display_name, const char *client_id, char **out_msg )
 {
+
+    Fl::lock();
+    if ( instance_name )
+        free ( instance_name );
+
+    instance_name = strdup ( client_id );
+    transport.osc_endpoint->name ( client_id );
     if ( transport.rolling )
     {
         *out_msg = strdup( "Cannot open while transport is running." );
@@ -115,10 +125,13 @@ NSM_Client::command_open ( const char *name, const char *display_name, const cha
     
     nsm->project_filename = new_filename;
 
-    return ERR_OK;
-
     // For raysession
     transport.say_hello();
+
+    Fl::unlock();
+
+    return ERR_OK;
+
 }
 
 void

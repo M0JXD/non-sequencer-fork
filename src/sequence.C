@@ -24,8 +24,6 @@
 
 #include "non.H"
 
-#include <FL/Fl.H>
-
 #include <errno.h>
 
 /* #include <string> */

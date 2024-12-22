@@ -240,5 +240,5 @@ Transport::say_hello( void )
     lo_message_free ( m );
 
     // needed to indicate that for raysession
-    nsm->nsm_send_is_hidden ( nsm );
+    //->nsm_send_is_shown ( nsm );
 }

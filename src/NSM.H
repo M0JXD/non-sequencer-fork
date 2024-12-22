@@ -33,12 +33,12 @@ public:
     
 protected:
 
-    int command_open ( const char *name, const char *display_name, const char *client_id, char **out_msg ) override;
-    int command_save ( char **out_msg ) override;
-    // int command_quit ( char **out_msg );
+    int command_open ( const char *name, const char *display_name, const char *client_id, char **out_msg );
+    int command_save ( char **out_msg );
+    int command_quit ( char **out_msg );
 
     void command_active ( bool );
 
-    void command_hide_gui( void ) override;
-    void command_show_gui( void ) override;
+    void command_hide_gui( void );
+    void command_show_gui( void );
 };
