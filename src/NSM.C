@@ -123,7 +123,7 @@ NSM_Client::command_open ( const char *name, const char *display_name, const cha
     
     nsm->project_filename = new_filename;
 
-    // For raysession
+    // How is this different to handle_hello?
     //transport.say_hello();
 
     return ERR_OK;
