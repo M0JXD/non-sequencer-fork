@@ -18,9 +18,6 @@
 /*******************************************************************************/
 
 #include "NSM.H"
-#include "nsm.h"
-#include "../../nonlib/OSC/Endpoint.H"
-
 
 #include <stdio.h>
 #include <sys/stat.h>
@@ -39,7 +36,6 @@
 
 extern Transport transport;
 extern char *instance_name;
-extern void set_nsm_callbacks ( nsm_client_t *nsm );
 
 extern NSM_Client *nsm;
 

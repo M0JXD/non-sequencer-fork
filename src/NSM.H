@@ -39,6 +39,6 @@ protected:
 
     void command_active ( bool );
 
-    void command_hide_gui( void );
-    void command_show_gui( void );
+    void command_hide_gui( void ) override;
+    void command_show_gui( void ) override;
 };
