@@ -58,17 +58,18 @@ UI *ui;
 void
 quit ( void )
 {
-    // TODO: Save the window size?
-    //if(!project_directory.empty())
-    // save_window_sizes();
+    /* clean up, only for valgrind's sake */
+    // Moved to start, I think this captures window sizes?
+    ui->save_settings();
+
+    // If we're NSM just hide the GUI
     if ( nsm->is_active ( ) )
     {
         nsm->nsm_send_is_hidden ( nsm );
         while ( Fl::first_window ( ) ) Fl::first_window ( )->hide ( );
     }
-    else // we really are quitting, not just hiding
+    else // Terminate the program
     {
-        /* clean up, only for valgrind's sake */
         ui->save_settings();
         delete ui;
         midi_all_sound_off();
