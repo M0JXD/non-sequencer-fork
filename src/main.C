@@ -215,7 +215,6 @@ check_nsm ( void * v )
 int
 main ( int argc, char **argv )
 {
-    bool no_ui = false;
     printf( "%s %s %s -- %s\n", APP_TITLE, VERSION, "", COPYRIGHT );
 
     if ( ! Fl::visual( FL_DOUBLE | FL_RGB ) )
@@ -254,6 +253,7 @@ main ( int argc, char **argv )
     // Fl::lock ( );
 
     //const char *nsm_url = getenv( "NSM_URL" );
+    // Hardcoded for debugging
     const char *nsm_url = "osc.udp://jamiedrinkell-Nitro-AN515-57:16187/";
 
 #ifdef HAVE_XPM
@@ -294,7 +294,20 @@ main ( int argc, char **argv )
     Fl::add_check( check_sigterm );
 
     ui->load_settings();
-    ui->run();
+
+    if ( !nsm_url )
+    {
+        DMESSAGE ( "Running UI..." );
+
+        ui->run ( );
+    }
+    else
+    {
+        while ( !got_sigterm )
+        {
+            Fl::wait ( 2147483.648 ); /* magic number means forever */
+        }
+    }
 
     return 0;
 }
