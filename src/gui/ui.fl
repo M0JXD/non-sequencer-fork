@@ -1696,18 +1696,16 @@ else if ( tabs->value() == phrase_tab )
 else
 	return NULL;} {}
   }
-  Function {command_show_gui()} {open return_type void
+  Function {command_show_gui(void)} {open selected return_type void
   } {
-    code {main_window->show();} {selected
-    }
+    code {main_window->show();} {}
   }
-  Function {command_hide_gui()} {open return_type void
+  Function {command_hide_gui(void)} {open return_type void
   } {
-    code {main_window->hide();
-//while ( Fl::first_window() )
-//{
-//    Fl::first_window()->hide();
-//}} {}
+    code {while ( Fl::first_window() )
+{
+    Fl::first_window()->hide();
+}} {}
   }
 } 
 

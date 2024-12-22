@@ -223,23 +223,3 @@ Transport::set_beat_type ( int n )
     _master_beat_type = n;
     _done = false;
 }
-
-void
-Transport::say_hello( void )
-{
-    lo_message m = lo_message_new ( );
-
-    lo_message_add ( m, "sssss",
-        "/non/hello",
-        instance_name,
-        APP_NAME,
-        VERSION,
-        instance_name ); // this seems to be the same as osc_endpoint->url() ??
-
-    nsm->broadcast ( m );
-
-    lo_message_free ( m );
-
-    // needed to indicate that for raysession
-    nsm->nsm_send_is_shown ( nsm );
-}

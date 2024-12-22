@@ -250,6 +250,9 @@ main ( int argc, char **argv )
 
     clear_song();
 
+    // // "The main thread must call lock() to initialize the threading support in FLTK."
+    // Fl::lock ( );
+
     //const char *nsm_url = getenv( "NSM_URL" );
     const char *nsm_url = "osc.udp://jamiedrinkell-Nitro-AN515-57:16187/";
 
@@ -260,8 +263,6 @@ main ( int argc, char **argv )
 
     instance_name = strdup( APP_NAME );
 
-
-    
     if ( nsm_url )
     {
         if ( ! nsm->init( nsm_url ) )
