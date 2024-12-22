@@ -215,7 +215,7 @@ check_nsm ( void * v )
 int
 main ( int argc, char **argv )
 {
-
+    bool no_ui = false;
     printf( "%s %s %s -- %s\n", APP_TITLE, VERSION, "", COPYRIGHT );
 
     if ( ! Fl::visual( FL_DOUBLE | FL_RGB ) )
@@ -263,7 +263,7 @@ main ( int argc, char **argv )
     {
         if ( ! nsm->init( nsm_url ) )
         {
-            nsm->announce( APP_NAME, ":switch:dirty:", argv[0] );
+            nsm->announce( APP_NAME, ":optional-gui:switch:dirty:", argv[0] );
 
             song.signal_dirty.connect( sigc::mem_fun( nsm, &NSM_Client::is_dirty ) );
             song.signal_clean.connect( sigc::mem_fun( nsm, &NSM_Client::is_clean ) );

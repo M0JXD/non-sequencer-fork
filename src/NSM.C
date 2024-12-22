@@ -64,13 +64,11 @@ NSM_Client::command_save ( char **out_msg )
 int 
 NSM_Client::command_open ( const char *name, const char *display_name, const char *client_id, char **out_msg )
 {
+    // if ( instance_name )
+    //     free ( instance_name );
 
-    Fl::lock();
-    if ( instance_name )
-        free ( instance_name );
-
-    instance_name = strdup ( client_id );
-    transport.osc_endpoint->name ( client_id );
+    // instance_name = strdup ( client_id );
+    // transport.osc_endpoint->name ( client_id );
     if ( transport.rolling )
     {
         *out_msg = strdup( "Cannot open while transport is running." );
@@ -127,8 +125,6 @@ NSM_Client::command_open ( const char *name, const char *display_name, const cha
 
     // For raysession
     transport.say_hello();
-
-    Fl::unlock();
 
     return ERR_OK;
 

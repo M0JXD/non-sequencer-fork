@@ -80,6 +80,7 @@
     "Loggable.C": "cpp",
     "string": "cpp",
     "NSM.C": "cpp",
-    "transport.C": "cpp"
+    "transport.C": "cpp",
+    "New_Project_Dialog.C": "cpp"
   }
 }
