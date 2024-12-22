@@ -409,11 +409,11 @@ if ( Fl::event() == FL_SHORTCUT && Fl::event_key() == FL_Escape )
 	 
 if ( maybe_save_song() )
 	quit();} open
-      xywh {698 190 865 805} type Double color 47 resizable
+      xywh {698 190 865 805} type Double color 47 hide resizable
       code0 {o->color( FL_BACKGROUND_COLOR );}
       code1 {o->draw_overlay_callback( &UI::draw_overlay, this );}
       code2 {o->xclass( APP_NAME );}
-      class Overlay_Callback_Window size_range {700 509 0 0} visible
+      class Overlay_Callback_Window size_range {700 509 0 0}
     } {
       Fl_Group {} {open
         xywh {0 25 865 70} box FLAT_BOX
@@ -1698,20 +1698,16 @@ else
   }
   Function {command_show_gui()} {open return_type void
   } {
-    code {//DMESSAGE("GOT NSM COMMAND SHOW");
-main_window->show ( );
-// nsm_send_is_shown(nsm);} {}
+    code {main_window->show();} {selected
+    }
   }
   Function {command_hide_gui()} {open return_type void
   } {
-    code {{
-while ( Fl::first_window() )
-{
-    Fl::first_window()->hide();
-}
-
-}} {selected
-    }
+    code {main_window->hide();
+//while ( Fl::first_window() )
+//{
+//    Fl::first_window()->hide();
+//}} {}
   }
 } 
 

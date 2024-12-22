@@ -234,12 +234,12 @@ Transport::say_hello( void )
         instance_name,
         APP_NAME,
         VERSION,
-        instance_name );
+        instance_name ); // this seems to be the same as osc_endpoint->url() ??
 
     nsm->broadcast ( m );
 
     lo_message_free ( m );
 
     // needed to indicate that for raysession
-    nsm->nsm_send_is_hidden ( nsm );
+    nsm->nsm_send_is_shown ( nsm );
 }

@@ -250,7 +250,8 @@ main ( int argc, char **argv )
 
     clear_song();
 
-    const char *nsm_url = getenv( "NSM_URL" );
+    //const char *nsm_url = getenv( "NSM_URL" );
+    const char *nsm_url = "osc.udp://jamiedrinkell-Nitro-AN515-57:16187/";
 
 #ifdef HAVE_XPM
     ui->main_window->icon((char *)p);
