@@ -250,6 +250,8 @@ main ( int argc, char **argv )
 
     clear_song();
 
+    const char *nsm_url = getenv( "NSM_URL" );
+
 #ifdef HAVE_XPM
     ui->main_window->icon((char *)p);
 #endif
@@ -257,14 +259,14 @@ main ( int argc, char **argv )
 
     instance_name = strdup( APP_NAME );
 
-    const char *nsm_url = getenv( "NSM_URL" );
+
     
     if ( nsm_url )
     {
         if ( ! nsm->init( nsm_url ) )
         {
-            nsm->announce( APP_NAME, ":optional-gui:switch:dirty:", argv[0] );
-
+            nsm->announce( APP_NAME, ":switch:dirty:optional-gui:", argv[0] );
+            
             song.signal_dirty.connect( sigc::mem_fun( nsm, &NSM_Client::is_dirty ) );
             song.signal_clean.connect( sigc::mem_fun( nsm, &NSM_Client::is_clean ) );
 
