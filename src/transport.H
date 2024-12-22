@@ -87,7 +87,7 @@ public:
 
     static void timebase ( jack_transport_state_t state, jack_nframes_t nframes, jack_position_t *pos, int new_pos, void *arg );
 
-    void say_hello ( void );
+    // void say_hello ( void );
 };
 
 extern Transport transport;

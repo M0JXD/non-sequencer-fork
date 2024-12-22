@@ -47,7 +47,7 @@ extern UI *ui;
 
 NSM_Client::NSM_Client ( )
 {
-    project_filename = 0;
+    //project_filename = 0;
 }
 
 int command_open ( const char *name, const char *display_name, const char *client_id, char **out_msg );
@@ -124,7 +124,7 @@ NSM_Client::command_open ( const char *name, const char *display_name, const cha
     nsm->project_filename = new_filename;
 
     // For raysession
-    transport.say_hello();
+    //transport.say_hello();
 
     return ERR_OK;
 

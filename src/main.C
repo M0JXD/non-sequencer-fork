@@ -257,7 +257,8 @@ main ( int argc, char **argv )
 
     instance_name = strdup( APP_NAME );
 
-    const char *nsm_url = getenv( "NSM_URL" );
+    //const char *nsm_url = getenv( "NSM_URL" );
+    char* nsm_url = "osc.udp://jamiedrinkell-Nitro-AN515-57:38836/";
     
     if ( nsm_url )
     {

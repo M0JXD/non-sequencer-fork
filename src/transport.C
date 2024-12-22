@@ -223,22 +223,22 @@ Transport::set_beat_type ( int n )
     _done = false;
 }
 
-void
-Transport::say_hello( void )
-{
-    lo_message m = lo_message_new ( );
+// void
+// Transport::say_hello( void )
+// {
+//     lo_message m = lo_message_new ( );
 
-    lo_message_add ( m, "sssss",
-        "/non/hello",
-        osc_endpoint->url ( ),
-        APP_NAME,
-        VERSION,
-        instance_name );
+//     lo_message_add ( m, "sssss",
+//         "/non/hello",
+//         osc_endpoint->url ( ),
+//         APP_NAME,
+//         VERSION,
+//         instance_name );
 
-    nsm->broadcast ( m );
+//     nsm->broadcast ( m );
 
-    lo_message_free ( m );
+//     lo_message_free ( m );
 
-    // needed to indicate that for raysession
-    //->nsm_send_is_shown ( nsm );
-}
+//     // needed to indicate that for raysession
+//     //->nsm_send_is_shown ( nsm );
+// }
