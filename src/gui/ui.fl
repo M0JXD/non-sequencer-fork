@@ -653,7 +653,7 @@ if ( val )
 	playlist_browser->value( playlist_browser->value() + 1 );
 else
 	playlist_browser->value( playlist_browser->size() );} open
-              xywh {5 590 235 30} color 63
+              xywh {5 590 235 30} color 69
             } {}
           }
           Fl_Input sequence_name_field {
