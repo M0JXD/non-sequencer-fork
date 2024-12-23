@@ -16,11 +16,11 @@ The differences are:
 + Pure FLTK build, à la Stazed.
 + Fully link against Stazed's FL and nonlib.
 + An end user instrument directory, perhaps ~/.local/share/non-sequencer/instruments
++ Save the window postion
 + Fix some bugs: 
 1) If you enter a pattern and the note goes out of bounds of the set of bars, the pattern length gets longer to accomodate, disregarding the set amount of bars and the time signature. This persists even after those notes are removed. To get it back, select a higher amount of bars than the artifical length, then the desired lower amount. (is this a feature or a bug? :/) (This is a carry over from OG Non)
 2) If there is a note already to the right of where you want to place one the sequencer might not allow you to place it. To work around this, remove the note(s) to the right, then enter them again afterwards. Alternatively you can choose a shorter note duration to maintain a gap to the right of the entered note. (This is a carry over from OG Non)
-3) With the Default intrument, scrolling down can cause the labels to become misaligned. (Can't test in OG Non, see below)
-4) Save the window postion
+3) With the Default intrument, scrolling down can cause the labels to become misaligned. To workaround, it seems that selecting the instrument twice disables scrolling. (Can't test in OG Non, see below)
 
 ## Reasoning for fork:
 
