@@ -266,8 +266,12 @@ main ( int argc, char **argv )
 #ifdef HAVE_XPM
     ui->main_window->icon((char *)p);
 #endif
-    ui->main_window->show( 0, 0 );
 
+    if ( !nsm_url )
+    {
+        ui->main_window->show( 0, 0 );
+    }
+    
     instance_name = strdup( APP_NAME );
 
     if ( nsm_url )
