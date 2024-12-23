@@ -82,6 +82,7 @@
     "NSM.C": "cpp",
     "transport.C": "cpp",
     "New_Project_Dialog.C": "cpp",
-    "Endpoint.C": "cpp"
+    "Endpoint.C": "cpp",
+    "Fl_Text_Edit_Window.C": "cpp"
   }
 }

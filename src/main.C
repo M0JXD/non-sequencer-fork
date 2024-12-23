@@ -305,7 +305,6 @@ main ( int argc, char **argv )
     if ( !nsm_url )
     {
         DMESSAGE ( "Running UI..." );
-
         ui->run ( );
     }
     else
