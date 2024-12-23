@@ -58,8 +58,7 @@ UI *ui;
 void
 quit ( void )
 {
-    /* clean up, only for valgrind's sake */
-    // Moved to start, I think this captures window sizes?
+
     ui->save_settings();
 
     // If we're NSM just hide the GUI
@@ -70,6 +69,7 @@ quit ( void )
     }
     else // Terminate the program
     {
+        /* clean up, only for valgrind's sake */
         ui->save_settings();
         delete ui;
         midi_all_sound_off();

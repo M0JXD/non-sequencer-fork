@@ -109,7 +109,7 @@ Function {init_colors()} {open private C return_type {static void}
 } 
 
 widget_class Visual_Metronome {
-  xywh {976 630 760 195} type Double hide
+  xywh {978 940 100 100} type Double visible
 } {
   Fl_Slider progress {
     private xywh {139 115 1149 23} type Horizontal box FLAT_BOX color 7 selection_color 54
@@ -262,7 +262,7 @@ _draw_overlay_userdata = v;} {}
   }
 } 
 
-Function {update_transport( void * )} {return_type void
+Function {update_transport( void * )} {open return_type void
 } {
   code {// transport_poll();
 
@@ -329,7 +329,8 @@ class UI {open
   }
   decl {Fl_Text_Buffer *phrase_notes_buffer} {private local
   }
-  Function {UI()} {} {
+  Function {UI()} {open
+  } {
     code {fl_register_images();
 
 canvas_background_color = FL_GREEN;
@@ -363,7 +364,8 @@ playlist->signal_new_song.connect( sigc::mem_fun( this, &UI::update_sequence_wid
 pattern_canvas_widget->signal_settings_change.connect( sigc::mem_fun( this, &UI::update_pattern_widgets ) );
 phrase_canvas_widget->signal_settings_change.connect( sigc::mem_fun( this, &UI::update_phrase_widgets ) );} {}
   }
-  Function {~UI()} {} {
+  Function {~UI()} {open
+  } {
     code {delete seq_window;
 delete main_window;} {}
   }
@@ -400,7 +402,8 @@ free( path );} {}
 if ( c )
    c->draw_overlay();} {}
   }
-  Function {make_main_window()} {} {
+  Function {make_main_window()} {open
+  } {
     Fl_Window main_window {
       label {Non Sequencer}
       callback {// Ignore escape
@@ -409,7 +412,7 @@ if ( Fl::event() == FL_SHORTCUT && Fl::event_key() == FL_Escape )
 	 
 if ( maybe_save_song() )
 	quit();} open
-      xywh {698 190 865 805} type Double color 47 hide resizable
+      xywh {213 323 865 805} type Double color 47 hide resizable
       code0 {o->color( FL_BACKGROUND_COLOR );}
       code1 {o->draw_overlay_callback( &UI::draw_overlay, this );}
       code2 {o->xclass( APP_NAME );}
@@ -582,11 +585,12 @@ else
         }
       }
       Fl_Tabs tabs {
-        callback {((Fl_Group*)o->value())->child( 0 )->take_focus();} open
+        callback {((Fl_Group*)o->value())->child( 0 )->take_focus();
+tabs->value(pattern_tab);} open selected
         xywh {-1 91 868 694} box FLAT_BOX color 47 labeltype SHADOW_LABEL labelsize 19 when 1 resizable
         code0 {canvas_background_color = fl_rgb_color( 18, 18, 18 );}
       } {
-        Fl_Group sequence_tab {open
+        Fl_Group sequence_tab {
           xywh {0 91 865 692} box FLAT_BOX color 37 labeltype NO_LABEL labelsize 12 resizable
           code0 {update_sequence_widgets();}
         } {
@@ -649,7 +653,7 @@ if ( val )
 	playlist_browser->value( playlist_browser->value() + 1 );
 else
 	playlist_browser->value( playlist_browser->size() );} open
-              xywh {5 590 235 30} color 69
+              xywh {5 590 235 30} color 63
             } {}
           }
           Fl_Input sequence_name_field {
@@ -1696,7 +1700,7 @@ else if ( tabs->value() == phrase_tab )
 else
 	return NULL;} {}
   }
-  Function {command_show_gui(void)} {open selected return_type void
+  Function {command_show_gui(void)} {open return_type void
   } {
     code {main_window->show();} {}
   }
