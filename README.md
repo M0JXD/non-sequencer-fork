@@ -8,12 +8,12 @@ The differences are:
 + Fixed some compile errors to build for newer C++ standard.
 + Changed to xmake build system.
 + Change instrument directory path.
++ NSM Hide/Show GUI (in hide_show_gui branch)
 
 ### Would be nice to do:
 + Some built-in humanisation options.
-+ NSM Hide/Show GUI
 + Pure FLTK build, à la Stazed.
-+ Link against Stazed's FL and nonlib.
++ Link against Stazed's FL and nonlib. (nonlib was updated for hide_show_gui)
 + An end user instrument directory, perhaps ~/.local/share/non-sequencer/instruments
 + Fix some/bugs: 
 1) If you enter a pattern and the note goes out of bounds of the set of bars, the pattern length gets longer to accomodate, disregarding the set amount of bars and the time signature. This persists even after those notes are removed. To get it back, select a higher amount of bars than the artifical length, then the desired lower amount. (is this a feature or a bug? :/)
