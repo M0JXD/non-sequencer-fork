@@ -40,6 +40,9 @@ extern char *instance_name;
 extern NSM_Client *nsm;
 extern UI *ui;
 
+extern int nsm_quit;
+extern int got_sigterm;
+
 NSM_Client::NSM_Client ( )
 {
     //project_filename = 0;
@@ -150,4 +153,11 @@ void
 NSM_Client::command_show_gui( void )
 {
     ui->command_show_gui ( );
+}
+
+int
+NSM_Client::command_quit(char **out_msg) {
+    got_sigterm = 1;
+    nsm_quit = 1;
+    return ERR_OK;
 }

@@ -51,26 +51,28 @@ NSM_Client *nsm;
 
 char *instance_name;
 
-/* default to pattern mode */
+int nsm_quit = 0;
+int got_sigterm = 0;
 
+/* default to pattern mode */
+int _x_parent, _y_parent, _w_parent, _h_parent;
 UI *ui;
 
 void
 quit ( void )
 {
-
-    ui->save_settings();
-
     // If we're NSM just hide the GUI
-    if ( nsm->is_active ( ) )
+    if ( nsm->is_active ( ) && !nsm_quit )
     {
         nsm->nsm_send_is_hidden ( nsm );
         while ( Fl::first_window ( ) ) Fl::first_window ( )->hide ( );
+        got_sigterm = 0;
     }
     else // Terminate the program
     {
         /* clean up, only for valgrind's sake */
         ui->save_settings();
+        save_window_sizes();
         delete ui;
         midi_all_sound_off();
 
@@ -171,10 +173,10 @@ save_song ( const char *name )
 
     song.filename = strdup( name );
     song.dirty( false );
+    save_window_sizes();
 
     return true;
 }
-
 
 void
 setup_jack ( )
@@ -194,12 +196,57 @@ setup_jack ( )
     }
 }
 
-static int got_sigterm = 0;
+void
+save_window_sizes ( ) 
+{
+      if( ( _x_parent == ui->main_window->x() ) && ( _y_parent ==  ui->main_window->y() ) &&
+           ( _w_parent ==  ui->main_window->w() ) && (_h_parent == ui->main_window->h() ) )
+      {
+          return; // nothing changed
+      }
+  
+      FILE *fp = fopen ( "window", "w" );
+  
+      if ( !fp )
+      {
+          printf ( "Error opening window file for writing\n" );
+          return;
+      }
+  
+      fprintf ( fp, "%d:%d:%d:%d\n", ui->main_window->x(), ui->main_window->y(), ui->main_window->w(), ui->main_window->h());
+  
+      fclose ( fp );
+}
+
+void
+load_window_sizes ( ) 
+{
+      FILE *fp = fopen ( "window", "r" );
+  
+      if ( !fp )
+      {
+          printf ( "Error opening window file for reading\n" );
+          return;
+      }
+  
+      while ( 4 == fscanf ( fp, "%d:%d:%d:%d\n]\n", &_x_parent, &_y_parent, &_w_parent, &_h_parent ) )
+      {
+      }
+  
+      ui->main_window->resize ( _x_parent, _y_parent, _w_parent, _h_parent );
+  
+      fclose ( fp );
+}
+
+
 
 void
 sigterm_handler ( int )
 {
     got_sigterm = 1;
+    // For some reason raysession quits this way?
+    // Regardless any external sigterm should be treated seriously.
+    nsm_quit = 1;
     Fl::awake();
 }
 
@@ -209,6 +256,7 @@ check_sigterm ( void * )
     if ( got_sigterm )
     {
         MESSAGE( "Got SIGTERM, quitting..." );
+        nsm_quit = 1;
         quit();
     }
 }
@@ -231,6 +279,8 @@ main ( int argc, char **argv )
         WARNING( "Xdbe not supported, FLTK will fake double buffering." );
     }
 
+    got_sigterm = 0;
+    nsm_quit = 0;
     ::signal( SIGTERM, sigterm_handler );
     ::signal( SIGHUP, sigterm_handler );
     ::signal( SIGINT, sigterm_handler );
@@ -266,6 +316,8 @@ main ( int argc, char **argv )
 #ifdef HAVE_XPM
     ui->main_window->icon((char *)p);
 #endif
+
+    load_window_sizes();
 
     if ( !nsm_url )
     {
@@ -317,6 +369,7 @@ main ( int argc, char **argv )
         {
             Fl::wait ( 2147483.648 ); /* magic number means forever */
         }
+        quit();
     }
 
     return 0;

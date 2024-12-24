@@ -44,6 +44,9 @@ bool load_song ( const char *name );
 bool save_song ( const char *name );
 void setup_jack ( void );
 
+void save_window_sizes();
+void load_window_sizes();
+
 #include "common.h"
 #include "const.h"
 
