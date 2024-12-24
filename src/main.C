@@ -72,7 +72,10 @@ quit ( void )
     {
         /* clean up, only for valgrind's sake */
         ui->save_settings();
-        save_window_sizes();
+        if (song.filename != NULL || nsm->is_active()) {
+            save_window_sizes();
+        }
+
         delete ui;
         midi_all_sound_off();
 
@@ -173,7 +176,7 @@ save_song ( const char *name )
 
     song.filename = strdup( name );
     song.dirty( false );
-    save_window_sizes();
+    save_window_sizes(name);
 
     return true;
 }
@@ -197,48 +200,54 @@ setup_jack ( )
 }
 
 void
-save_window_sizes ( ) 
+save_window_sizes ( const char* name ) 
 {
-      if( ( _x_parent == ui->main_window->x() ) && ( _y_parent ==  ui->main_window->y() ) &&
-           ( _w_parent ==  ui->main_window->w() ) && (_h_parent == ui->main_window->h() ) )
-      {
-          return; // nothing changed
-      }
-  
-      FILE *fp = fopen ( "window", "w" );
-  
-      if ( !fp )
-      {
-          printf ( "Error opening window file for writing\n" );
-          return;
-      }
-  
-      fprintf ( fp, "%d:%d:%d:%d\n", ui->main_window->x(), ui->main_window->y(), ui->main_window->w(), ui->main_window->h());
-  
-      fclose ( fp );
+    char* path;
+    asprintf( &path, "%s/%s", config.user_config_dir, "window" );
+
+    if( ( _x_parent == ui->main_window->x() ) && ( _y_parent ==  ui->main_window->y() ) &&
+        ( _w_parent ==  ui->main_window->w() ) && (_h_parent == ui->main_window->h() ) )
+    {
+        return; // nothing changed
+    }
+
+    FILE *fp = fopen ( path, "w" );
+
+    if ( !fp )
+    {
+        printf ( "Error opening window file for writing\n" );
+        return;
+    }
+
+    fprintf ( fp, "%d:%d:%d:%d\n", ui->main_window->x(), ui->main_window->y(), ui->main_window->w(), ui->main_window->h());
+
+    fclose ( fp );
+    free( path );
 }
 
 void
-load_window_sizes ( ) 
+load_window_sizes ( const char* name ) 
 {
-      FILE *fp = fopen ( "window", "r" );
-  
-      if ( !fp )
-      {
-          printf ( "Error opening window file for reading\n" );
-          return;
-      }
-  
-      while ( 4 == fscanf ( fp, "%d:%d:%d:%d\n]\n", &_x_parent, &_y_parent, &_w_parent, &_h_parent ) )
-      {
-      }
-  
-      ui->main_window->resize ( _x_parent, _y_parent, _w_parent, _h_parent );
-  
-      fclose ( fp );
+    char* path;
+    asprintf( &path, "%s/%s", config.user_config_dir, "window" );
+
+    FILE *fp = fopen ( path, "r" );
+
+    if ( !fp )
+    {
+        printf ( "Error opening window file for reading\n" );
+        return;
+    }
+
+    while ( 4 == fscanf ( fp, "%d:%d:%d:%d\n]\n", &_x_parent, &_y_parent, &_w_parent, &_h_parent ) )
+    {
+    }
+
+    ui->main_window->resize ( _x_parent, _y_parent, _w_parent, _h_parent );
+
+    fclose ( fp );
+    free( path );
 }
-
-
 
 void
 sigterm_handler ( int )
@@ -260,7 +269,6 @@ check_sigterm ( void * )
         quit();
     }
 }
-
 
 void
 check_nsm ( void * v )
