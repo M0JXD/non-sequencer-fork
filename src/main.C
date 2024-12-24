@@ -176,7 +176,7 @@ save_song ( const char *name )
 
     song.filename = strdup( name );
     song.dirty( false );
-    save_window_sizes(name);
+    save_window_sizes();
 
     return true;
 }
@@ -200,7 +200,7 @@ setup_jack ( )
 }
 
 void
-save_window_sizes ( const char* name ) 
+save_window_sizes ( void ) 
 {
     char* path;
     asprintf( &path, "%s/%s", config.user_config_dir, "window" );
@@ -226,7 +226,7 @@ save_window_sizes ( const char* name )
 }
 
 void
-load_window_sizes ( const char* name ) 
+load_window_sizes ( void ) 
 {
     char* path;
     asprintf( &path, "%s/%s", config.user_config_dir, "window" );
