@@ -55,8 +55,10 @@ int nsm_quit = 0;
 int got_sigterm = 0;
 
 /* default to pattern mode */
-int _x_parent, _y_parent, _w_parent, _h_parent;
 UI *ui;
+
+// TODO: For save_window_sizes, should go in ui.fl
+int _x_parent, _y_parent, _w_parent, _h_parent;
 
 void
 quit ( void )
@@ -199,6 +201,8 @@ setup_jack ( )
     }
 }
 
+
+// TODO: These functions really should be encapsulated in ui.fl, but because fluid keeps breaking them they're here for now
 void
 save_window_sizes ( void ) 
 {

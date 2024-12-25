@@ -9,13 +9,13 @@ The differences are:
 + Changed to xmake build system.
 + Change instrument directory path.
 + NSM Hide/Show GUI
-+ Save the window size (currently, this is saved globally)
++ Save the window size (currently, this is saved for all instances under .non/window)
 + Manually updated "nonlib" to a newer version by Stazed
 
 ### Would be nice to do/fix:
 + Some built-in humanisation options.
 + Pure FLTK build, à la Stazed.
-+ Fully link against Stazed's FL and nonlib.
++ Fully link against Stazed's FL and nonlib modules.
 + An end user instrument directory, perhaps ~/.local/share/non-sequencer/instruments
 + Save the window postion per project
 + Fix some bugs: 
