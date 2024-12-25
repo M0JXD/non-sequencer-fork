@@ -1,3 +1,5 @@
+add_requires("sigc++-2.0", {system = true})
+
 target("non-sequencer")
     set_kind("binary")
     add_files("src/*.C", "src/gui/*.C")
@@ -17,12 +19,8 @@ target("non-sequencer")
 
     -- without this it trys to build against FLTK, despite sys_link below.
     add_sysincludedirs("/usr/local/include/ntk")
-    -- sigc++ is odd, I really struggled forcing the build system (and intellisense) to find it.
-    -- I think the original author wanted to remove this dependency anyways
-    add_sysincludedirs("/usr/include/sigc++-2.0")
-    add_sysincludedirs("/usr/lib/x86_64-linux-gnu/sigc++-2.0/include")
-
-    add_syslinks("pthread", "jack", "sigc-2.0", "lo", "X11", "ntk", "ntk_images", "cairo")
+    add_syslinks("pthread", "jack", "lo", "X11", "ntk", "ntk_images", "cairo")
+    add_packages("sigc++-2.0")
 
     -- Clear the generated fl files.
     after_clean(function (target)
@@ -110,4 +108,3 @@ option("NativeOptimizations")
     set_default(true)
     set_showmenu(true)
     add_vectorexts("sse2")
-   
