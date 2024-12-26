@@ -1,4 +1,6 @@
 add_requires("sigc++-2.0", {system = true})
+add_requires("ntk", {system = true})
+add_requires("ntk_images", {system = true})
 
 target("non-sequencer")
     set_kind("binary")
@@ -14,14 +16,11 @@ target("non-sequencer")
     add_defines("SYSTEM_PATH=\"/usr/local/share/non-sequencer\"")
     add_defines("DOCUMENT_PATH=\"/usr/local/share/doc\"")
     add_defines("PIXMAP_PATH=\"/usr/local/share/pixmaps\"")
-
+    
     add_includedirs("nonlib", "FL", "nonlib/MIDI", "nonlib/OSC")
-
-    -- without this it trys to build against FLTK, despite sys_link below.
-    add_sysincludedirs("/usr/local/include/ntk")
-    add_syslinks("pthread", "jack", "lo", "X11", "ntk", "ntk_images", "cairo")
-    add_packages("sigc++-2.0")
-
+    add_packages("sigc++-2.0", "ntk", "ntk_images")
+    add_syslinks("pthread", "jack", "lo", "X11", "cairo")
+    
     -- Clear the generated fl files.
     after_clean(function (target)
         os.rm("$(projectdir)/src/gui/**.C")
