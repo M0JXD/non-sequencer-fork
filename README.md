@@ -8,7 +8,7 @@ The differences are:
 + Fixed some compile errors to build for newer C++ standard.
 + Changed to xmake build system.
 + Change instrument directory path.
-+ NSM Hide/Show GUI
++ NSM Hide/Show GUI - this is designed around use in RaySession with "Remember Optional GUI States" enabled.
 + Save the window size (currently, this is saved for all instances under .non/window)
 + Manually updated "nonlib" to a newer version by Stazed
 
