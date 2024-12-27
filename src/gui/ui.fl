@@ -1,6 +1,6 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0300 
-header_name {.H} 
+version 1.0308
+header_name {.H}
 code_name {.C}
 comment {//
 // Copyright (C) 2008 Jonathan Moore Liles
@@ -20,81 +20,81 @@ comment {//
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 } {in_source in_header
-} 
+}
 
 decl {\#include <FL/Fl_Dial.H>} {public local
-} 
+}
 
 decl {\#include <About_Dialog.H>} {private local
-} 
+}
 
 decl {class Fl_Scalepack;} {public local
-} 
+}
 
 decl {class Fl_Sometimes_Input;} {public local
-} 
+}
 
 decl {\#include <Fl_Flowpack.H>} {public global
-} 
+}
 
 decl {\#include <FL/Fl_Overlay_Window.H>} {public local
-} 
+}
 
 decl {\#include <FL/Fl_Theme_Chooser.H>} {private local
-} 
+}
 
 decl {\#include <FL/Fl_Progress.H>} {public global
-} 
+}
 
 decl {\#include <Fl_Scalepack.H>} {private local
-} 
+}
 
 decl {\#include <Fl_Sometimes_Input.H>} {private local
-} 
+}
 
 decl {\#include <Fl_Menu_Settings.H>} {private local
-} 
+}
 
 decl {\#include <FL/Fl_Shared_Image.H>} {private local
-} 
+}
 
 decl {\#include <math.h>} {private local
-} 
+}
 
 decl {\#include "event_edit.H"} {private local
-} 
+}
 
 decl {\#include "../jack.H"} {private local
-} 
+}
 
 decl {\#include "../NSM.H"} {private local
-} 
+}
 
 decl {extern NSM_Client *nsm;} {private local
-} 
+}
 
 decl {\#include "../transport.H"} {private local
-} 
+}
 
 decl {extern UI *ui;} {private local
-} 
+}
 
 decl {class O_Canvas;} {private local
-} 
+}
 
 decl {class Triggers;} {public local
-} 
+}
 
 decl {class Instrument_Editor;} {private local
-} 
+}
 
 decl {Fl_Color canvas_background_color;} {public local
-} 
+}
 
 decl {Fl_Color velocity_colors[128];} {public local
-} 
+}
 
-Function {init_colors()} {open private C return_type {static void}
+Function {init_colors()} {private C return_type {static void}
 } {
   code {unsigned int i;
     /* velocity colors */
@@ -106,10 +106,10 @@ Function {init_colors()} {open private C return_type {static void}
     {
         velocity_colors[i] = fl_color_average( hi, lo, 1.0 * ((float)i / 128) );
     }} {}
-} 
+}
 
-widget_class Visual_Metronome {open
-  xywh {978 1028 100 100} type Double visible
+widget_class Visual_Metronome {
+  xywh {978 940 100 100} type Double visible
 } {
   Fl_Slider progress {
     private xywh {139 115 1149 23} type Horizontal box FLAT_BOX color 7 selection_color 54
@@ -232,7 +232,7 @@ _tpb = 0;
 _beat = 0;
 _tick = 0;
 _flip = 0;} {}
-} 
+}
 
 class Overlay_Callback_Window {: {public Fl_Overlay_Window}
 } {
@@ -260,9 +260,9 @@ _draw_overlay_userdata = 0;} {}
     code {_draw_overlay_callback = cb;
 _draw_overlay_userdata = v;} {}
   }
-} 
+}
 
-Function {update_transport( void * )} {open return_type void
+Function {update_transport( void * )} {return_type void
 } {
   code {// transport_poll();
 
@@ -319,7 +319,7 @@ if ( transport.rolling )
 }
 
 ui->transport_state->do_callback();} {}
-} 
+}
 
 class UI {open
 } {
@@ -403,8 +403,7 @@ free( path );} {}
 if ( c )
    c->draw_overlay();} {}
   }
-  Function {make_main_window()} {open
-  } {
+  Function {make_main_window()} {} {
     Fl_Window main_window {
       label {Non Sequencer}
       callback {// Ignore escape
@@ -413,7 +412,7 @@ if ( Fl::event() == FL_SHORTCUT && Fl::event_key() == FL_Escape )
 	 
 if ( maybe_save_song() )
 	quit();} open
-      xywh {213 323 865 805} type Double color 47 resizable
+      xywh {866 82 865 805} type Double color 47 resizable
       code0 {o->color( FL_BACKGROUND_COLOR );}
       code1 {o->draw_overlay_callback( &UI::draw_overlay, this );}
       code2 {o->xclass( APP_NAME );}
@@ -586,7 +585,7 @@ else
         }
       }
       Fl_Tabs tabs {
-        callback {((Fl_Group*)o->value())->child( 0 )->take_focus();} open
+        callback {((Fl_Group*)o->value())->child( 0 )->take_focus();}
         xywh {-1 91 868 694} box FLAT_BOX color 47 labeltype SHADOW_LABEL labelsize 19 when 1 resizable
         code0 {canvas_background_color = fl_rgb_color( 18, 18, 18 );}
       } {
@@ -766,7 +765,7 @@ o->maximum( phrase::phrases() );}
             }
           }
         }
-        Fl_Group pattern_tab {open
+        Fl_Group pattern_tab {
           xywh {0 91 867 694} box FLAT_BOX color 47 labeltype NO_LABEL
           code0 {update_pattern_widgets();}
         } {
@@ -828,7 +827,7 @@ o->maximum( pattern::patterns() );}
               }
               Fl_Value_Slider velocity_slider {
                 label Velocity
-                callback {pattern_canvas_widget->selected_velocity( o->value() );} selected
+                callback {pattern_canvas_widget->selected_velocity( o->value() );}
                 xywh {310 742 110 18} type {Horz Fill} labelsize 10 align 1 maximum 127 value 64 textsize 9
               }
             }
@@ -1062,7 +1061,7 @@ pattern_canvas_widget->changed_mapping();}
           }
         }
       }
-      Fl_Group {} {open
+      Fl_Group {} {
         xywh {0 784 865 23}
       } {
         Fl_Box status {
@@ -1090,7 +1089,7 @@ if ( s != o->label() )
           xywh {783 784 82 23} box THIN_UP_BOX align 64
         }
       }
-      Fl_Group {} {open
+      Fl_Group {} {
         xywh {0 0 865 24}
       } {
         Fl_Menu_Bar menu_bar {open
@@ -1691,7 +1690,7 @@ ie.set( i, n );
 
 ie.run();} {}
   }
-  Function {current_canvas()} {open return_type {Canvas*}
+  Function {current_canvas()} {return_type {Canvas*}
   } {
     code {if ( tabs->value() == pattern_tab )
 	return pattern_canvas_widget;
@@ -1702,16 +1701,21 @@ else
   }
   Function {command_show_gui(void)} {open return_type void
   } {
-    code {main_window->show();} {}
+    code {\#ifdef HIDEGUI
+main_window->show();
+\#endif} {}
   }
   Function {command_hide_gui(void)} {open return_type void
   } {
-    code {while ( Fl::first_window() )
+    code {\#ifdef HIDEGUI
+while ( Fl::first_window() )
 {
     Fl::first_window()->hide();
-}} {}
+}
+\#endif} {selected
+    }
   }
-} 
+}
 
 class Instrument_Editor {} {
   Function {Instrument_Editor()} {open return_type void
@@ -1773,7 +1777,7 @@ note_field->value( n );} {}
 while ( window->shown() )
 	Fl::wait();} {}
   }
-} 
+}
 
 class Trigger {: {public Fl_Progress}
 } {
@@ -1857,7 +1861,7 @@ switch ( m )
 
 return r;} {}
   }
-} 
+}
 
 widget_class Triggers {
   xywh {390 620 335 390} type Double hide
@@ -1970,7 +1974,7 @@ Fl_Group::draw();} {}
   }
   decl {\#include <stdlib.h>} {private local
   }
-} 
+}
 
 class List_Chooser {} {
   Function {List_Chooser( const char *name, const char *action )} {} {
@@ -2012,10 +2016,10 @@ window->hide();}
   } {
     code {browser->add( item );} {}
   }
-} 
+}
 
 decl {float status_intensity;} {private local
-} 
+}
 
 Function {fade_status(void*)} {private return_type {static void}
 } {
@@ -2027,7 +2031,7 @@ Function {fade_status(void*)} {private return_type {static void}
 
     if ( status_intensity >= 0.01f )
         Fl::repeat_timeout( 1 / 15.0f, fade_status );} {}
-} 
+}
 
 Function {gui_status( const char *fmt, ... )} {C return_type void
 } {
@@ -2048,4 +2052,4 @@ Function {gui_status( const char *fmt, ... )} {C return_type void
     status_intensity = 1.0f;
     Fl::remove_timeout( fade_status );
     Fl::add_timeout( 1 / 15.0f, fade_status );} {}
-} 
+}

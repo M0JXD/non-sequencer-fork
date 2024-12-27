@@ -65,16 +65,16 @@ int _x_parent, _y_parent, _w_parent, _h_parent;
 void
 quit ( void )
 {
+#ifdef HIDEGUI
     // If we're NSM just hide the GUI
     if ( nsm->is_active ( ) && !nsm_quit )
     {
-#ifdef HIDEGUI
         nsm->nsm_send_is_hidden ( nsm );
         while ( Fl::first_window ( ) ) Fl::first_window ( )->hide ( );
         got_sigterm = 0;
-#endif
     }
     else // Terminate the program
+#endif
     {
         /* clean up, only for valgrind's sake */
         ui->save_settings();
