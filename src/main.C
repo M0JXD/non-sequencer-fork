@@ -57,8 +57,10 @@ int got_sigterm = 0;
 /* default to pattern mode */
 UI *ui;
 
+#ifdef HIDEGUI
 // TODO: For save_window_sizes, should go in ui.fl
 int _x_parent, _y_parent, _w_parent, _h_parent;
+#endif
 
 void
 quit ( void )
@@ -66,17 +68,21 @@ quit ( void )
     // If we're NSM just hide the GUI
     if ( nsm->is_active ( ) && !nsm_quit )
     {
+#ifdef HIDEGUI
         nsm->nsm_send_is_hidden ( nsm );
         while ( Fl::first_window ( ) ) Fl::first_window ( )->hide ( );
         got_sigterm = 0;
+#endif
     }
     else // Terminate the program
     {
         /* clean up, only for valgrind's sake */
         ui->save_settings();
+#ifdef HIDEGUI
         if (song.filename != NULL || nsm->is_active()) {
             save_window_sizes();
         }
+#endif
 
         delete ui;
         midi_all_sound_off();
@@ -178,8 +184,9 @@ save_song ( const char *name )
 
     song.filename = strdup( name );
     song.dirty( false );
+#ifdef HIDEGUI
     save_window_sizes();
-
+#endif
     return true;
 }
 
@@ -201,7 +208,7 @@ setup_jack ( )
     }
 }
 
-
+#ifdef HIDEGUI
 // TODO: These functions really should be encapsulated in ui.fl, but because fluid keeps breaking them they're here for now
 void
 save_window_sizes ( void ) 
@@ -252,6 +259,7 @@ load_window_sizes ( void )
     fclose ( fp );
     free( path );
 }
+#endif
 
 void
 sigterm_handler ( int )
@@ -329,12 +337,18 @@ main ( int argc, char **argv )
     ui->main_window->icon((char *)p);
 #endif
 
+#ifdef HIDEGUI
     load_window_sizes();
+#endif
 
     if ( !nsm_url )
     {
         ui->main_window->show( 0, 0 );
     }
+
+#ifndef HIDEGUI
+    ui->main_window->show( 0, 0 );
+#endif
     
     instance_name = strdup( APP_NAME );
 
@@ -342,7 +356,11 @@ main ( int argc, char **argv )
     {
         if ( ! nsm->init( nsm_url ) )
         {
+#ifdef HIDEGUI
             nsm->announce( APP_NAME, ":switch:dirty:optional-gui:", argv[0] );
+#else
+            nsm->announce( APP_NAME, ":switch:dirty:", argv[0] );
+#endif
             
             song.signal_dirty.connect( sigc::mem_fun( nsm, &NSM_Client::is_dirty ) );
             song.signal_clean.connect( sigc::mem_fun( nsm, &NSM_Client::is_clean ) );
@@ -370,12 +388,16 @@ main ( int argc, char **argv )
 
     ui->load_settings();
 
+#ifdef HIDEGUI
     if ( !nsm_url )
+#endif
     {
         DMESSAGE ( "Running UI..." );
         ui->run ( );
     }
+#ifdef HIDEGUI
     else
+
     {
         while ( !got_sigterm )
         {
@@ -383,6 +405,6 @@ main ( int argc, char **argv )
         }
         quit();
     }
-
+#endif
     return 0;
 }

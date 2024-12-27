@@ -10,7 +10,7 @@ target("non-sequencer")
     --add_files("FL/util/*.C")
 
     add_rules("ntk-fluid")
-    add_options("NativeOptimizations")
+    add_options("NativeOptimizations", "HideGUI")
 
     add_defines("VERSION=\"2\"")
     add_defines("SYSTEM_PATH=\"/usr/local/share/non-sequencer\"")
@@ -107,3 +107,8 @@ option("NativeOptimizations")
     set_default(true)
     set_showmenu(true)
     add_vectorexts("sse2")
+
+option("HideGUI")
+    set_default(true)
+    set_showmenu(true)
+    add_defines("HIDEGUI")

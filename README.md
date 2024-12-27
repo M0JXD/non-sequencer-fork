@@ -58,3 +58,8 @@ The included "instruments" folder is no longer in the home directory, but in:
 ```
 /usr/local/share/non-sequencer/instruments
 ```
+
+To build without the hidden GUI feature, run this before building:
+```
+xmake f --HideGUI=n -v
+```
