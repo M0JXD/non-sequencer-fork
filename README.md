@@ -8,14 +8,22 @@ The differences are:
 + Fixed some compile errors to build for newer C++ standard.
 + Changed to xmake build system.
 + Change instrument directory path.
+<<<<<<< HEAD
 + NSM Hide/Show GUI - this is designed around use in RaySession with "Remember Optional GUI States" enabled.
 + Save the window size (currently, this is saved for all instances under .non/window)
 + Manually updated "nonlib" to a newer version by Stazed
+=======
++ NSM Hide/Show GUI (in hide_show_gui branch)
+>>>>>>> master
 
 ### Would be nice to do/fix:
 + Some built-in humanisation options.
 + Pure FLTK build, à la Stazed.
+<<<<<<< HEAD
 + Fully link against Stazed's FL and nonlib modules.
+=======
++ Link against Stazed's FL and nonlib. (nonlib was updated for hide_show_gui)
+>>>>>>> master
 + An end user instrument directory, perhaps ~/.local/share/non-sequencer/instruments
 + Save the window postion per project
 + Fix some bugs: 

@@ -108,8 +108,13 @@ Function {init_colors()} {private C return_type {static void}
     }} {}
 }
 
+<<<<<<< HEAD
 widget_class Visual_Metronome {
   xywh {978 940 100 100} type Double visible
+=======
+widget_class Visual_Metronome {open
+  xywh {978 1028 100 100} type Double visible
+>>>>>>> master
 } {
   Fl_Slider progress {
     private xywh {139 115 1149 23} type Horizontal box FLAT_BOX color 7 selection_color 54
@@ -262,7 +267,7 @@ _draw_overlay_userdata = v;} {}
   }
 }
 
-Function {update_transport( void * )} {return_type void
+Function {update_transport( void * )} {open return_type void
 } {
   code {// transport_poll();
 
@@ -412,7 +417,11 @@ if ( Fl::event() == FL_SHORTCUT && Fl::event_key() == FL_Escape )
 	 
 if ( maybe_save_song() )
 	quit();} open
+<<<<<<< HEAD
       xywh {866 82 865 805} type Double color 47 resizable
+=======
+      xywh {213 323 865 805} type Double color 47 resizable
+>>>>>>> master
       code0 {o->color( FL_BACKGROUND_COLOR );}
       code1 {o->draw_overlay_callback( &UI::draw_overlay, this );}
       code2 {o->xclass( APP_NAME );}
@@ -765,7 +774,11 @@ o->maximum( phrase::phrases() );}
             }
           }
         }
+<<<<<<< HEAD
         Fl_Group pattern_tab {
+=======
+        Fl_Group pattern_tab {open
+>>>>>>> master
           xywh {0 91 867 694} box FLAT_BOX color 47 labeltype NO_LABEL
           code0 {update_pattern_widgets();}
         } {
@@ -827,7 +840,7 @@ o->maximum( pattern::patterns() );}
               }
               Fl_Value_Slider velocity_slider {
                 label Velocity
-                callback {pattern_canvas_widget->selected_velocity( o->value() );}
+                callback {pattern_canvas_widget->selected_velocity( o->value() );} selected
                 xywh {310 742 110 18} type {Horz Fill} labelsize 10 align 1 maximum 127 value 64 textsize 9
               }
             }
