@@ -419,9 +419,7 @@ sequence::save ( const char *name ) const
 }
 
 
-/*************/
-/* Accessors */
-/*************/
+
 
 char *
 sequence::name ( void ) const
@@ -454,3 +452,4 @@ sequence::notes ( const char *s )
 
     song.set_dirty();
 }
+

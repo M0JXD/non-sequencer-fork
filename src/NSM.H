@@ -38,4 +38,7 @@ protected:
     int command_quit ( char **out_msg );
 
     void command_active ( bool );
+
+    void command_hide_gui( void ) override;
+    void command_show_gui( void ) override;
 };

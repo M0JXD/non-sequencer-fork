@@ -19,7 +19,6 @@
 
 #include "NSM.H"
 
-
 #include <stdio.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -39,12 +38,14 @@ extern Transport transport;
 extern char *instance_name;
 
 extern NSM_Client *nsm;
-
 extern UI *ui;
+
+extern int nsm_quit;
+extern int got_sigterm;
 
 NSM_Client::NSM_Client ( )
 {
-    project_filename = 0;
+    //project_filename = 0;
 }
 
 int command_open ( const char *name, const char *display_name, const char *client_id, char **out_msg );
@@ -61,6 +62,11 @@ NSM_Client::command_save ( char **out_msg )
 int 
 NSM_Client::command_open ( const char *name, const char *display_name, const char *client_id, char **out_msg )
 {
+    // if ( instance_name )
+    //     free ( instance_name );
+
+    // instance_name = strdup ( client_id );
+    // transport.osc_endpoint->name ( client_id );
     if ( transport.rolling )
     {
         *out_msg = strdup( "Cannot open while transport is running." );
@@ -115,7 +121,11 @@ NSM_Client::command_open ( const char *name, const char *display_name, const cha
     
     nsm->project_filename = new_filename;
 
+    // NB: Non-XT calls a "say_hello" here.
+    // How is this different to handle_hello?
+
     return ERR_OK;
+
 }
 
 void
@@ -131,4 +141,23 @@ NSM_Client::command_active ( bool b )
         ui->sm_indicator->tooltip( NULL );
         ui->sm_indicator->value( 0 );
     }
+}
+
+void
+NSM_Client::command_hide_gui( void )
+{
+    ui->command_hide_gui ( );
+}
+
+void
+NSM_Client::command_show_gui( void )
+{
+    ui->command_show_gui ( );
+}
+
+int
+NSM_Client::command_quit(char **out_msg) {
+    got_sigterm = 1;
+    nsm_quit = 1;
+    return ERR_OK;
 }

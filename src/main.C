@@ -51,29 +51,51 @@ NSM_Client *nsm;
 
 char *instance_name;
 
-/* default to pattern mode */
+int nsm_quit = 0;
+int got_sigterm = 0;
 
+/* default to pattern mode */
 UI *ui;
+
+#ifdef HIDEGUI
+// TODO: For save_window_sizes, should go in ui.fl
+int _x_parent, _y_parent, _w_parent, _h_parent;
+#endif
 
 void
 quit ( void )
 {
-    /* clean up, only for valgrind's sake */
-    ui->save_settings();
+#ifdef HIDEGUI
+    // If we're NSM just hide the GUI
+    if ( nsm->is_active ( ) && !nsm_quit )
+    {
+        nsm->nsm_send_is_hidden ( nsm );
+        while ( Fl::first_window ( ) ) Fl::first_window ( )->hide ( );
+        got_sigterm = 0;
+    }
+    else // Terminate the program
+#endif
+    {
+        /* clean up, only for valgrind's sake */
+        ui->save_settings();
+#ifdef HIDEGUI
+        if (song.filename != NULL || nsm->is_active()) {
+            save_window_sizes();
+        }
+#endif
 
-    delete ui;
+        delete ui;
+        midi_all_sound_off();
 
-    midi_all_sound_off();
+        // wait for it...
+        sleep( 1 );
 
-    // wait for it...
-    sleep( 1 );
+        midi_shutdown();
 
-    midi_shutdown();
+        MESSAGE( "Your fun is over" );
 
-
-    MESSAGE( "Your fun is over" );
-
-    exit( 0 );
+        exit( 0 );
+    }
 }
 
 void
@@ -162,10 +184,11 @@ save_song ( const char *name )
 
     song.filename = strdup( name );
     song.dirty( false );
-
+#ifdef HIDEGUI
+    save_window_sizes();
+#endif
     return true;
 }
-
 
 void
 setup_jack ( )
@@ -185,12 +208,66 @@ setup_jack ( )
     }
 }
 
-static int got_sigterm = 0;
+#ifdef HIDEGUI
+// TODO: These functions really should be encapsulated in ui.fl, but because fluid keeps breaking them they're here for now
+void
+save_window_sizes ( void ) 
+{
+    char* path;
+    asprintf( &path, "%s/%s", config.user_config_dir, "window" );
+
+    if( ( _x_parent == ui->main_window->x() ) && ( _y_parent ==  ui->main_window->y() ) &&
+        ( _w_parent ==  ui->main_window->w() ) && (_h_parent == ui->main_window->h() ) )
+    {
+        return; // nothing changed
+    }
+
+    FILE *fp = fopen ( path, "w" );
+
+    if ( !fp )
+    {
+        printf ( "Error opening window file for writing\n" );
+        return;
+    }
+
+    fprintf ( fp, "%d:%d:%d:%d\n", ui->main_window->x(), ui->main_window->y(), ui->main_window->w(), ui->main_window->h());
+
+    fclose ( fp );
+    free( path );
+}
+
+void
+load_window_sizes ( void ) 
+{
+    char* path;
+    asprintf( &path, "%s/%s", config.user_config_dir, "window" );
+
+    FILE *fp = fopen ( path, "r" );
+
+    if ( !fp )
+    {
+        printf ( "Error opening window file for reading\n" );
+        return;
+    }
+
+    while ( 4 == fscanf ( fp, "%d:%d:%d:%d\n]\n", &_x_parent, &_y_parent, &_w_parent, &_h_parent ) )
+    {
+    }
+
+    ui->main_window->resize ( _x_parent, _y_parent, _w_parent, _h_parent );
+
+    fclose ( fp );
+    free( path );
+}
+#endif
 
 void
 sigterm_handler ( int )
 {
     got_sigterm = 1;
+    // For some reason raysession quits this way?
+    // Regardless any external sigterm should be treated seriously.
+    nsm_quit = 1;
     Fl::awake();
 }
 
@@ -200,10 +277,10 @@ check_sigterm ( void * )
     if ( got_sigterm )
     {
         MESSAGE( "Got SIGTERM, quitting..." );
+        nsm_quit = 1;
         quit();
     }
 }
-
 
 void
 check_nsm ( void * v )
@@ -215,7 +292,6 @@ check_nsm ( void * v )
 int
 main ( int argc, char **argv )
 {
-
     printf( "%s %s %s -- %s\n", APP_TITLE, VERSION, "", COPYRIGHT );
 
     if ( ! Fl::visual( FL_DOUBLE | FL_RGB ) )
@@ -223,6 +299,8 @@ main ( int argc, char **argv )
         WARNING( "Xdbe not supported, FLTK will fake double buffering." );
     }
 
+    got_sigterm = 0;
+    nsm_quit = 0;
     ::signal( SIGTERM, sigterm_handler );
     ::signal( SIGHUP, sigterm_handler );
     ::signal( SIGINT, sigterm_handler );
@@ -250,21 +328,40 @@ main ( int argc, char **argv )
 
     clear_song();
 
+    // // "The main thread must call lock() to initialize the threading support in FLTK."
+    // Fl::lock ( );
+
+    const char *nsm_url = getenv( "NSM_URL" );
+
 #ifdef HAVE_XPM
     ui->main_window->icon((char *)p);
 #endif
-    ui->main_window->show( 0, 0 );
 
+#ifdef HIDEGUI
+    load_window_sizes();
+#endif
+
+    if ( !nsm_url )
+    {
+        ui->main_window->show( 0, 0 );
+    }
+
+#ifndef HIDEGUI
+    ui->main_window->show( 0, 0 );
+#endif
+    
     instance_name = strdup( APP_NAME );
 
-    const char *nsm_url = getenv( "NSM_URL" );
-    
     if ( nsm_url )
     {
         if ( ! nsm->init( nsm_url ) )
         {
+#ifdef HIDEGUI
+            nsm->announce( APP_NAME, ":switch:dirty:optional-gui:", argv[0] );
+#else
             nsm->announce( APP_NAME, ":switch:dirty:", argv[0] );
-
+#endif
+            
             song.signal_dirty.connect( sigc::mem_fun( nsm, &NSM_Client::is_dirty ) );
             song.signal_clean.connect( sigc::mem_fun( nsm, &NSM_Client::is_clean ) );
 
@@ -290,7 +387,24 @@ main ( int argc, char **argv )
     Fl::add_check( check_sigterm );
 
     ui->load_settings();
-    ui->run();
 
+#ifdef HIDEGUI
+    if ( !nsm_url )
+#endif
+    {
+        DMESSAGE ( "Running UI..." );
+        ui->run ( );
+    }
+#ifdef HIDEGUI
+    else
+
+    {
+        while ( !got_sigterm )
+        {
+            Fl::wait ( 2147483.648 ); /* magic number means forever */
+        }
+        quit();
+    }
+#endif
     return 0;
 }

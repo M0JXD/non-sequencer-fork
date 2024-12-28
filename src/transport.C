@@ -17,6 +17,8 @@
 /* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 /*******************************************************************************/
 
+#include "NSM.H"
+
 #include <jack/jack.h>
 
 #include <stdlib.h>
@@ -28,6 +30,9 @@
 #include "const.h"
 
 extern jack_client_t *client;
+extern NSM_Client *nsm;
+extern char *instance_name;
+OSC::Endpoint *osc_endpoint = 0;
 
 /* FIXME: use JackSyncCallback instead? (sync-callback) */
 
