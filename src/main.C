@@ -399,16 +399,17 @@ main ( int argc, char **argv )
         }
     }
 
-    MESSAGE( "Initializing GUI" );
 #ifdef HIDEGUI
     if ( force_show_gui )
     {
-        nsm->nsm_send_is_shown ( nsm );
         ui->main_window->show( 0, 0 );
-        
+        nsm->nsm_send_is_shown ( nsm );
+    } else {
+        nsm->nsm_send_is_hidden ( nsm );
     }
 #endif
 
+    MESSAGE( "Initializing GUI" );
     Fl::add_check( check_sigterm );
 
     ui->load_settings();
