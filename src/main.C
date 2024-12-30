@@ -54,6 +54,9 @@ char *instance_name;
 int nsm_quit = 0;
 int got_sigterm = 0;
 
+#ifdef HIDEGUI
+int force_show_gui = 0;
+#endif
 /* default to pattern mode */
 UI *ui;
 
@@ -207,7 +210,6 @@ setup_jack ( )
             ASSERTION( "Either the version of JACK you are using does pass BBT information, or the current timebase master does not provide it." );
     }
 }
-
 #ifdef HIDEGUI
 // TODO: These functions really should be encapsulated in ui.fl, but because fluid keeps breaking them they're here for now
 void
@@ -258,6 +260,24 @@ load_window_sizes ( void )
 
     fclose ( fp );
     free( path );
+
+    // Runtime check to see if force_show exists
+    char* path2;
+    asprintf( &path2, "%s/%s", config.user_config_dir, "force_show" );
+
+    FILE *fp2 = fopen ( path2, "r" );
+
+    if ( !fp2 )
+    {
+        MESSAGE ( "No override, GUI will start hidden in NSM sessions\n" );
+        return;
+    } else {
+        MESSAGE ( "GUI behaviour overridden, GUI will start shown in NSM sessions\n" );
+        force_show_gui = 1;
+    }
+
+    fclose ( fp2 );
+    free( path2 );
 }
 #endif
 
@@ -328,9 +348,6 @@ main ( int argc, char **argv )
 
     clear_song();
 
-    // // "The main thread must call lock() to initialize the threading support in FLTK."
-    // Fl::lock ( );
-
     const char *nsm_url = getenv( "NSM_URL" );
 
 #ifdef HAVE_XPM
@@ -383,6 +400,14 @@ main ( int argc, char **argv )
     }
 
     MESSAGE( "Initializing GUI" );
+#ifdef HIDEGUI
+    if ( force_show_gui )
+    {
+        nsm->nsm_send_is_shown ( nsm );
+        ui->main_window->show( 0, 0 );
+        
+    }
+#endif
 
     Fl::add_check( check_sigterm );
 
@@ -401,6 +426,7 @@ main ( int argc, char **argv )
     {
         while ( !got_sigterm )
         {
+            
             Fl::wait ( 2147483.648 ); /* magic number means forever */
         }
         quit();
