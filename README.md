@@ -9,20 +9,17 @@ The differences are:
 + Changed to xmake build system.
 + Change instrument directory path.
 + NSM Hide/Show GUI - this is designed around use in RaySession with "Remember Optional GUI States" enabled.
-+ Save the window size (currently, this is saved for all instances under .non/window)
++ Save the window size (currently, this is saved for all instances under .non/window, saving per project is not implemented and will not be until someone either provides a good reason to or submits the code.)
 + Manually updated "nonlib" to a newer version by Stazed
 
-
 ### Would be nice to do/fix:
-+ Some built-in humanisation options.
 + Pure FLTK build, à la Stazed.
 + Link against Stazed's FL and nonlib. (nonlib was updated for hide_show_gui)
 + An end user instrument directory, perhaps ~/.local/share/non-sequencer/instruments
-+ Save the window postion per project
 + Fix some bugs: 
-1) If you enter a pattern and the note goes out of bounds of the set of bars, the pattern length gets longer to accomodate, disregarding the set amount of bars and the time signature. This persists even after those notes are removed. To get it back, select a higher amount of bars than the artifical length, then the desired lower amount. (is this a feature or a bug? :/) (This is a carry over from OG Non)
-2) If there is a note already to the right of where you want to place one the sequencer might not allow you to place it. To work around this, remove the note(s) to the right, then enter them again afterwards. Alternatively you can choose a shorter note duration to maintain a gap to the right of the entered note. (This is a carry over from OG Non)
-3) With the Default intrument, scrolling down can cause the labels to become misaligned. To workaround, it seems that selecting the instrument twice disables scrolling. (Can't test in OG Non, see below)
+1) If there is a note already to the right of where you want to place one the sequencer might not allow you to place it. To work around this, remove the note(s) to the right, then enter them again afterwards. Alternatively you can choose a shorter note duration to maintain a gap to the right of the entered note. (This is a carry over from OG Non)
+2) With the Default intrument, scrolling down can cause the labels to become misaligned. To workaround, it seems that selecting the instrument twice disables scrolling. (Can't test in OG Non, see below)
+3) Some crashes when something else tries to control JACK transport whilst sequencer is Timebase master (I rarely uses master mode so this is not urgent for me)
 
 ## Reasoning for fork:
 
@@ -32,7 +29,7 @@ The only other options with JACK-MIDI I found are much heavier, those being MuSE
 
 The .deb on KXStudio refused to pick up instrument files, so I knew I needed to fix that from source. Upon trying to build Non-Sequencer I hit various issues due to outdated waf, not being able to find libraries, and compile errors due to outdated coding standard. So I fixed those issues by porting to build system that shouldn't go out of date as quickly but is still easy to use, and doing some minor code edits.
 
-At the moment I'm weighing up whether to keep working on this, or look at trying to add NSM and better JACK support to something else (I quite like Helio Sequencer), and continuing to use Hydrogen for drums. Or maybe even reviving one of the many abandoned sequencers in the Linux Audio Wiki - I've yet to try/test everything!
+At the moment I'm weighing up whether to keep working on this, or look at trying to add NSM and better JACK support to something else (I quite like Helio Sequencer, Rosegarden is another option.), and continuing to use Hydrogen for drums.
 
 Another reason is that I mentioned looking into NTK maintenance for the Non-XT series, so it's worth having some (passing) experience.
 
