@@ -7,7 +7,7 @@ The differences are:
 
 + Fixed some compile errors to build for newer C++ standard.
 + Changed to xmake build system.
-+ Change instrument directory path.
++ Change instrument directory path to /usr/local/share/non-sequencer/instruments
 + NSM Hide/Show GUI - this is designed around use in RaySession with "Remember Optional GUI States" enabled.
 + Save the window size (currently, this is saved for all instances under .non/window, saving per project is not implemented and will not be until someone either provides a good reason to or submits the code.)
 + Link against @Stazed 's nonlib and FL
@@ -63,10 +63,3 @@ To build without the hidden GUI feature, run this before calling xmake:
 ```
 xmake f --HideGUI=n -v
 ```
-
-The included "instruments" folder is no longer in the home directory, but in:
-```
-/usr/local/share/non-sequencer/instruments
-```
-
-
