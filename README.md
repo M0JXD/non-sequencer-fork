@@ -10,11 +10,10 @@ The differences are:
 + Change instrument directory path.
 + NSM Hide/Show GUI - this is designed around use in RaySession with "Remember Optional GUI States" enabled.
 + Save the window size (currently, this is saved for all instances under .non/window, saving per project is not implemented and will not be until someone either provides a good reason to or submits the code.)
-+ Manually updated "nonlib" to a newer version by Stazed
++ Link against @Stazed 's nonlib and FL
 
 ### Would be nice to do/fix:
 + Pure FLTK build, à la Stazed.
-+ Link against Stazed's FL and nonlib. (nonlib was updated for hide_show_gui)
 + An end user instrument directory, perhaps ~/.local/share/non-sequencer/instruments
 + Fix some bugs: 
 1) If there is a note already to the right of where you want to place one the sequencer might not allow you to place it. To work around this, remove the note(s) to the right, then enter them again afterwards. Alternatively you can choose a shorter note duration to maintain a gap to the right of the entered note. (This is a carry over from OG Non)
@@ -42,11 +41,27 @@ If not, build it from linuxaudios's backup mirror, or from Stazed's NTK-UNOFFICI
 
 ### Building
 First, ensure the dependencies are available, as well as the xmake build system.
-Then simply:
+
+Before anything you will need to get the nonlib and FL submodules. Do this by:
+```
+git submodule update --init
+```
+
+Then build by calling xmake:
 
 ```
 xmake
+```
+
+It can then be installed to your system with:
+
+```
 xmake install --admin
+```
+
+To build without the hidden GUI feature, run this before calling xmake:
+```
+xmake f --HideGUI=n -v
 ```
 
 The included "instruments" folder is no longer in the home directory, but in:
@@ -54,7 +69,4 @@ The included "instruments" folder is no longer in the home directory, but in:
 /usr/local/share/non-sequencer/instruments
 ```
 
-To build without the hidden GUI feature, run this before building:
-```
-xmake f --HideGUI=n -v
-```
+
