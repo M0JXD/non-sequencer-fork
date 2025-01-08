@@ -417,16 +417,13 @@ main ( int argc, char **argv )
     else
 
     {
-        // Seems we need to handle some callbacks and wait before we can send shown/hidden message.
-        // For whatever reason sending them earlier means they're either being ignored or not sent properly.
-        // I have no clue why!
-        // So arbritarily run the event loop many times while we wait.
-        for (int i = 0; i < 1000; i++)
+        // Wait until we've handled recieved NSM annouce response from server
+        while (!nsm->is_active())
         {   
             Fl::wait ( 2147483.648 ); /* magic number means forever */
         }
 
-        // Now send the startup shown status.
+        // Send the startup GUI status.
         if ( force_show_gui ) {
             nsm->nsm_send_is_shown ( nsm );
         } else {
