@@ -417,7 +417,7 @@ main ( int argc, char **argv )
     else
 
     {
-        // Wait until we've handled recieved NSM annouce response from server
+        // Wait until we've recieved NSM annouce response from server
         while (!nsm->is_active())
         {   
             Fl::wait ( 2147483.648 ); /* magic number means forever */
