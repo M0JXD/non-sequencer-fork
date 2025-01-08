@@ -374,11 +374,13 @@ main ( int argc, char **argv )
         if ( ! nsm->init( nsm_url ) )
         {
 #ifdef HIDEGUI
+            if ( force_show_gui )
+                ui->main_window->show( 0, 0 );
+            
             nsm->announce( APP_NAME, ":switch:dirty:optional-gui:", argv[0] );
 #else
             nsm->announce( APP_NAME, ":switch:dirty:", argv[0] );
 #endif
-            
             song.signal_dirty.connect( sigc::mem_fun( nsm, &NSM_Client::is_dirty ) );
             song.signal_clean.connect( sigc::mem_fun( nsm, &NSM_Client::is_clean ) );
 
@@ -399,16 +401,6 @@ main ( int argc, char **argv )
         }
     }
 
-#ifdef HIDEGUI
-    if ( force_show_gui )
-    {
-        ui->main_window->show( 0, 0 );
-        nsm->nsm_send_is_shown ( nsm );
-    } else {
-        nsm->nsm_send_is_hidden ( nsm );
-    }
-#endif
-
     MESSAGE( "Initializing GUI" );
     Fl::add_check( check_sigterm );
 
@@ -425,9 +417,25 @@ main ( int argc, char **argv )
     else
 
     {
+        // Seems we need to handle some callbacks and wait before we can send shown/hidden message.
+        // For whatever reason sending them earlier means they're either being ignored or not sent properly.
+        // I have no clue why!
+        // So arbritarily run the event loop many times while we wait.
+        for (int i = 0; i < 1000; i++)
+        {   
+            Fl::wait ( 2147483.648 ); /* magic number means forever */
+        }
+
+        // Now send the startup shown status.
+        if ( force_show_gui ) {
+            nsm->nsm_send_is_shown ( nsm );
+        } else {
+            nsm->nsm_send_is_hidden (nsm );
+        }
+
+        // And then run like normal
         while ( !got_sigterm )
         {
-            
             Fl::wait ( 2147483.648 ); /* magic number means forever */
         }
         quit();

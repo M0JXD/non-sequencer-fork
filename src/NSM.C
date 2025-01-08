@@ -41,6 +41,7 @@ extern UI *ui;
 
 extern int nsm_quit;
 extern int got_sigterm;
+extern int force_show_gui;
 
 NSM_Client::NSM_Client ( )
 {
@@ -120,10 +121,16 @@ NSM_Client::command_open ( const char *name, const char *display_name, const cha
     
     nsm->project_filename = new_filename;
 
-    // NB: Non-XT calls a "say_hello" here.
-    // How is this different to handle_hello?
-
     return ERR_OK;
+    
+#ifdef HIDEGUI
+    // IDK if this does anything
+    if (force_show_gui) {
+        nsm->nsm_send_is_shown ( nsm );
+    } else {
+        nsm->nsm_send_is_hidden ( nsm );
+    }
+#endif
 
 }
 
