@@ -8,8 +8,12 @@ The differences are:
 + Fixed some compile errors to build for newer C++ standard.
 + Changed to xmake build system.
 + Change instrument directory path to /usr/local/share/non-sequencer/instruments
-+ NSM Hide/Show GUI - this is designed around use in RaySession with "Remember Optional GUI States" enabled.
-+ Save the window size (currently, this is saved for all instances under .non/window, saving per project is not implemented and will not be until someone either provides a good reason to or submits the code.)
++ NSM Optional GUI
+  + This can be completely removed with a build option, see below.
+  + By creating a file called "force_show" (its contents do not matter) in the ~/.non directory the hidden by default startup behaviour can be overridden. 
++ Save the window size
+  + Currently, this is saved for all instances under ~/.non/window, saving per project is not implemented and will not be until someone either provides a good reason to or submits the code.
+  + It is only implemented in optional-gui builds.
 + Link against @Stazed 's nonlib and FL
 
 ### Would be nice to do/fix:
@@ -18,7 +22,7 @@ The differences are:
 + Fix some bugs: 
 1) If there is a note already to the right of where you want to place one the sequencer might not allow you to place it. To work around this, remove the note(s) to the right, then enter them again afterwards. Alternatively you can choose a shorter note duration to maintain a gap to the right of the entered note. (This is a carry over from OG Non)
 2) With the Default intrument, scrolling down can cause the labels to become misaligned. To workaround, it seems that selecting the instrument twice disables scrolling. (Can't test in OG Non, see below)
-3) Some crashes when something else tries to control JACK transport whilst sequencer is Timebase master (I rarely uses master mode so this is not urgent for me)
+3) Some crashes when something else tries to control JACK transport whilst sequencer is timebase master (I rarely uses master mode so this is not urgent for me)
 
 ## Reasoning for fork:
 
