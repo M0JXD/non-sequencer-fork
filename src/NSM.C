@@ -144,8 +144,6 @@ set_nsm_callbacks ( nsm_client_t *nsm )
     nsm_set_save_callback( nsm, command_save, 0 );
     nsm_set_show_callback( nsm, command_show_gui, 0);
     nsm_set_hide_callback( nsm, command_hide_gui, 0);
-    //nsm_set_session_is_loaded_callback
-
     // nsm_set_broadcast_callback( nsm, command_broadcast, 0 );
     // nsm_set_session_is_loaded_callback( nsm, command_session_is_loaded, 0 );
 }
