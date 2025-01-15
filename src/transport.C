@@ -17,7 +17,7 @@
 /* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 /*******************************************************************************/
 
-#include "NSM.H"
+//#include "NSM.H"
 
 #include <jack/jack.h>
 
@@ -28,9 +28,10 @@
 #include "transport.H"
 #include "common.h"
 #include "const.h"
+#include "nsm.h"
 
 extern jack_client_t *client;
-extern NSM_Client *nsm;
+extern nsm_client_t *nsm;
 extern char *instance_name;
 OSC::Endpoint *osc_endpoint = 0;
 

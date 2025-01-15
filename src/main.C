@@ -26,7 +26,7 @@
 // #include "gui/input.H"
 #include "gui/ui.H"
 #include "jack.H"
-#include "NSM.H"
+#include "nonlib/nsm.h"
 #include "transport.H"
 #include "pattern.H"
 #include "phrase.H"
@@ -37,9 +37,6 @@ using namespace MIDI;
 // extern const char *BUILD_ID;
 // extern const char *VERSION;
 
-/* needed for extern to be compatible with non-xt*/
-std::string project_directory = "";
-
 const double NSM_CHECK_INTERVAL = 0.25f;
 
 sequence *playlist;
@@ -47,10 +44,12 @@ sequence *playlist;
 global_settings config;
 song_settings song;
 
-NSM_Client *nsm;
+nsm_client_t *nsm;
 
 char *instance_name;
+char* project_directory;
 
+extern void set_nsm_callbacks ( nsm_client_t *nsm );
 int nsm_quit = 0;
 int got_sigterm = 0;
 
@@ -70,9 +69,9 @@ quit ( void )
 {
 #ifdef HIDEGUI
     // If we're NSM just hide the GUI
-    if ( nsm->is_active ( ) && !nsm_quit )
+    if ( nsm_is_active ( nsm ) && !nsm_quit )
     {
-        nsm->nsm_send_is_hidden ( nsm );
+        nsm_send_is_hidden ( nsm );
         while ( Fl::first_window ( ) ) Fl::first_window ( )->hide ( );
         got_sigterm = 0;
     }
@@ -82,7 +81,7 @@ quit ( void )
         /* clean up, only for valgrind's sake */
         ui->save_settings();
 #ifdef HIDEGUI
-        if (song.filename != NULL || nsm->is_active()) {
+        if (song.filename != NULL || nsm_is_active( nsm )) {
             save_window_sizes();
         }
 #endif
@@ -124,12 +123,12 @@ init_song ( void )
     if ( ! midi_is_active() )
         setup_jack();
 
-    if ( !( nsm && nsm->is_active() ) )
+    if ( ! nsm_is_active( nsm ) )
         song.filename = NULL;
 
     clear_song();
 
-    if ( nsm && nsm->is_active() )
+    if ( nsm_is_active( nsm ) )
         save_song( song.filename );
 }
 
@@ -305,8 +304,23 @@ check_sigterm ( void * )
 void
 check_nsm ( void * v )
 {
-    nsm->check();
+    nsm_check_nowait( nsm );
     Fl::repeat_timeout( NSM_CHECK_INTERVAL, check_nsm, v );
+}
+
+static void
+command_active ( bool b, void *userdata )
+{
+    if ( b )
+    {
+        ui->sm_indicator->value( 1 );
+        ui->sm_indicator->tooltip( nsm_get_session_manager_name( nsm ));
+    }
+    else
+    {
+        ui->sm_indicator->tooltip( NULL );
+        ui->sm_indicator->value( 0 );
+    }
 }
 
 int
@@ -334,7 +348,7 @@ main ( int argc, char **argv )
 
     playlist = new sequence;
 
-    nsm = new NSM_Client;
+    // nsm = new NSM_Client;
 
     song.filename = NULL;
 
@@ -371,15 +385,18 @@ main ( int argc, char **argv )
 
     if ( nsm_url )
     {
-        if ( ! nsm->init( nsm_url ) )
+        nsm = nsm_new();
+        set_nsm_callbacks( nsm );
+        
+        if ( 0 == nsm_init( nsm, nsm_url ) )
         {
 #ifdef HIDEGUI
             if ( force_show_gui )
                 ui->main_window->show( 0, 0 );
             
-            nsm->announce( APP_NAME, ":switch:dirty:optional-gui:", argv[0] );
+            nsm_send_announce( nsm, APP_NAME, ":switch:dirty:optional-gui:", argv[0] );
 #else
-            nsm->announce( APP_NAME, ":switch:dirty:", argv[0] );
+            nsm_send_announce( nsm, APP_NAME, ":switch:dirty:", argv[0] );
 #endif
             song.signal_dirty.connect( sigc::mem_fun( nsm, &NSM_Client::is_dirty ) );
             song.signal_clean.connect( sigc::mem_fun( nsm, &NSM_Client::is_clean ) );
@@ -418,16 +435,21 @@ main ( int argc, char **argv )
 
     {
         // Wait until we've recieved NSM annouce response from server
-        while (!nsm->is_active())
+        while (!nsm_is_active ( nsm ) )
         {   
             Fl::wait ( 2147483.648 ); /* magic number means forever */
         }
 
+        // If we reach this point then NSM must be active, so do nsm stuff
+
+        // Call nsm command_active so SM light is shown
+        command_active( true, nsm );
+
         // Send the startup GUI status.
         if ( force_show_gui ) {
-            nsm->nsm_send_is_shown ( nsm );
+            nsm_send_is_shown ( nsm );
         } else {
-            nsm->nsm_send_is_hidden (nsm );
+            nsm_send_is_hidden (nsm );
         }
 
         // And then run like normal

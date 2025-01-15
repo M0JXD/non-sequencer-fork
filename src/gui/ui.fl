@@ -67,10 +67,10 @@ decl {\#include "event_edit.H"} {private local
 decl {\#include "../jack.H"} {private local
 }
 
-decl {\#include "../NSM.H"} {private local
+decl {\#include "../nsm.h"} {private local
 }
 
-decl {extern NSM_Client *nsm;} {private local
+decl {extern nsm_client_t *nsm;} {private local
 }
 
 decl {\#include "../transport.H"} {private local
@@ -297,7 +297,7 @@ if ( transport.rolling != oldstate )
 
 }
 
-if ( nsm && nsm->is_active() )
+if ( nsm && nsm_is_active() )
 {
      if ( ui->menu_new->active() )
      {
