@@ -23,7 +23,6 @@
 #include <string>
 
 #include "non.H"
-// #include "gui/input.H"
 #include "gui/ui.H"
 #include "jack.H"
 #include "nonlib/nsm.h"
@@ -34,22 +33,15 @@
 #include <MIDI/midievent.H>
 using namespace MIDI;
 
-// extern const char *BUILD_ID;
-// extern const char *VERSION;
-
 const double NSM_CHECK_INTERVAL = 0.25f;
-
 sequence *playlist;
-
 global_settings config;
 song_settings song;
-
 nsm_client_t *nsm;
-
 char *instance_name;
-char* project_directory;
+char *project_filename;
+std::string project_directory;  // Needed for nonlib Loggable.H compliance
 
-extern void set_nsm_callbacks ( nsm_client_t *nsm );
 int nsm_quit = 0;
 int got_sigterm = 0;
 
@@ -63,6 +55,30 @@ UI *ui;
 // TODO: For save_window_sizes, should go in ui.fl
 int _x_parent, _y_parent, _w_parent, _h_parent;
 #endif
+
+// This is quick and diry work around libsigc++
+class NSM_Client {
+    public:
+        void
+        is_dirty ( void )
+        {
+            if ( nsm_is_active( nsm ) )
+            {
+                nsm_send_is_dirty( nsm );
+            }
+        }
+
+        void
+        is_clean ( void )
+        {
+            if ( nsm_is_active ( nsm ) )
+            {
+                nsm_send_is_clean( nsm );
+            }
+        }
+} nsm2;
+
+extern void set_nsm_callbacks ( nsm_client_t *nsm );
 
 void
 quit ( void )
@@ -398,8 +414,8 @@ main ( int argc, char **argv )
 #else
             nsm_send_announce( nsm, APP_NAME, ":switch:dirty:", argv[0] );
 #endif
-            song.signal_dirty.connect( sigc::mem_fun( nsm, &NSM_Client::is_dirty ) );
-            song.signal_clean.connect( sigc::mem_fun( nsm, &NSM_Client::is_clean ) );
+            song.signal_dirty.connect( sigc::mem_fun( nsm2, &NSM_Client::is_dirty ) );
+            song.signal_clean.connect( sigc::mem_fun( nsm2, &NSM_Client::is_clean ) );
 
             // poll so we can keep OSC handlers running in the GUI thread and avoid extra sync
             Fl::add_timeout( NSM_CHECK_INTERVAL, check_nsm, NULL );

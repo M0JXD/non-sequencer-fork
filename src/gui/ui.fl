@@ -297,7 +297,7 @@ if ( transport.rolling != oldstate )
 
 }
 
-if ( nsm && nsm_is_active() )
+if ( nsm && nsm_is_active( nsm ) )
 {
      if ( ui->menu_new->active() )
      {
