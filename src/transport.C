@@ -28,10 +28,8 @@
 #include "transport.H"
 #include "common.h"
 #include "const.h"
-#include "nsm.h"
 
 extern jack_client_t *client;
-extern nsm_client_t *nsm;
 extern char *instance_name;
 OSC::Endpoint *osc_endpoint = 0;
 
